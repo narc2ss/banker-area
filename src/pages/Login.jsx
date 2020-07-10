@@ -45,13 +45,20 @@ const Login = () => {
   const LoginRequestHandler = (e) => {
     e.preventDefault();
 
+    // axios({
+    //   method: "post",
+    //   url: "/users/account/signin",
+    //   data: {
+    //     id: userId,
+    //     password: userPassword,
+    //   },
+    // }).then((res) => {
+    //   console.log(res.data);
+    //   // history.push("/");
+    // });
     axios({
-      method: "post",
-      url: "/users/account/signin",
-      data: {
-        id: userId,
-        password: userPassword,
-      },
+      method: "GET",
+      url: "/users/cookieTest",
     }).then((res) => {
       console.log(res.data);
       // history.push("/");

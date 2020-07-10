@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import logo from "../static/img/logo.png";
 import Profile from "../components/Profile";
 
-const isLoggined = false;
+const isLoggined = true;
 
 const HeaderContainer = styled.header`
   display: flex;

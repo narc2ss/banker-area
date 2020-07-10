@@ -1,0 +1,4 @@
+GET http://192.168.1.230:8080/users/cookieTest HTTP/1.1
+
+###
+GET http://192.168.1.230:8080/users/cookieTestRes HTTP/1.1
