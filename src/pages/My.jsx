@@ -6,19 +6,28 @@ import MyIdea from "../components/MyIdea";
 import Bought from "../components/Bought";
 import Like from "../components/Like";
 import Info from "../components/Info";
+import { useDispatch } from "react-redux";
+import { logOut } from "../modules/user";
+import { Button } from "../style/atoms";
 
 const activeStyle = {
   fontWeight: 700,
 };
 
 const My = () => {
+  const dispatch = useDispatch();
+  const onLogOut = () => {
+    // dispatch(logOut);
+  };
   return (
     <>
       <div>
         <img src={logo} alt="profileImage" />
         <h1>Narciss</h1>
       </div>
-      <input type="button" value="로그아웃" />
+      <Button type="button" onClick={onLogOut()}>
+        로그아웃
+      </Button>
       <ul>
         <li>
           <NavLink to="/my" activeStyle={activeStyle} exact>

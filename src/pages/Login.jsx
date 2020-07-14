@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
-import SocialLogin from "../components/SocialLogin";
-import { Input } from "../style/atoms";
+import SocialLogin from "../components/OAuth";
+import { Input, Button } from "../style/atoms";
+import { useDispatch } from "react-redux";
+import { logIn } from "../modules/user";
 
 dotenv.config();
 
@@ -33,6 +35,7 @@ const Title = styled.h1`
 const Login = () => {
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const dispatch = useDispatch();
 
   const userIdHandler = (e) => {
     setUserId(e.target.value);
@@ -44,25 +47,7 @@ const Login = () => {
 
   const LoginRequestHandler = (e) => {
     e.preventDefault();
-
-    // axios({
-    //   method: "post",
-    //   url: "/users/account/signin",
-    //   data: {
-    //     id: userId,
-    //     password: userPassword,
-    //   },
-    // }).then((res) => {
-    //   console.log(res.data);
-    //   // history.push("/");
-    // });
-    axios({
-      method: "GET",
-      url: "/users/cookieTest",
-    }).then((res) => {
-      console.log(res.data);
-      // history.push("/");
-    });
+    dispatch(logIn());
   };
 
   return (
@@ -71,40 +56,37 @@ const Login = () => {
         <LoginContainer>
           <Title>로그인</Title>
           <form onSubmit={LoginRequestHandler}>
-            <div>
-              <label htmlFor="userId">아이디</label>
-            </div>
-
             <Input
               type="text"
               value={userId}
               onChange={userIdHandler}
               placeholder="아이디를 입력하세요"
+              label="아이디"
               full
             />
             <div>
-              <div>
-                <label htmlFor="userPassword">비밀번호</label>
-                <Link to="findPassword">비밀번호 찾기</Link>
-              </div>
+              <div></div>
               <Input
                 type="password"
                 value={userPassword}
                 onChange={userPasswordHandler}
                 placeholder="비밀번호를 입력하세요"
+                label="비밀번호"
                 full
               />
             </div>
-            <input type="submit" value="로그인" />
+            <Button type="submit" full>
+              로그인
+            </Button>
           </form>
           <div>
             <span>계정이 없다면?</span>
-            <Link to="/register">게정 만들기</Link>
+            <Link to="/register">계정 만들기</Link>
           </div>
           <div>
-            <span>또는</span>
+            <span>비밀번호를 잊으셨나요?</span>
+            <Link to="findPassword">비밀번호 찾기</Link>
           </div>
-          <SocialLogin />
         </LoginContainer>
       </LoginPositioner>
     </>

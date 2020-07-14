@@ -1,5 +1,8 @@
 import React from "react";
 import { Route } from "react-router-dom";
+
+import { withCookies } from "react-cookie";
+
 import { Home, Login, SignUp, My, IdeaDetail, Write } from "pages";
 
 const App = () => {
@@ -15,4 +18,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default withCookies(App);

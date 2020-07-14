@@ -1,8 +1,9 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 
 import GlobalStyle from "../style/globalStyle";
+import Theme from "../style/theme";
 import Header from "../components/Header";
 import App from "shared/App";
 
@@ -14,13 +15,15 @@ const AppLayout = styled.div`
 `;
 
 const Root = () => (
-  <BrowserRouter>
-    <GlobalStyle />
-    <Header />
-    <AppLayout>
-      <App />
-    </AppLayout>
-  </BrowserRouter>
+  <ThemeProvider theme={Theme}>
+    <BrowserRouter>
+      <GlobalStyle />
+      <Header />
+      <AppLayout>
+        <App />
+      </AppLayout>
+    </BrowserRouter>
+  </ThemeProvider>
 );
 
 export default Root;

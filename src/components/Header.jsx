@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 import logo from "../static/img/logo.png";
 import Profile from "../components/Profile";
-
-const isLoggined = true;
+import RouteLink from "../style/atoms/RouteLink";
+import { useSelector } from "react-redux";
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -39,16 +39,23 @@ const SearchBar = styled.input.attrs({
   placeholder: "어떤 획기적인 아이디어가 있는지 둘러볼까요?",
 })`
   width: 500px;
+  height: 3rem;
+  padding: 1rem;
+
+  font-size: 1.1rem;
+
+  border-radius: 50px;
+  outline: none;
+
+  &:focus {
+    color: ${(props) => props.theme.palette.gray};
+  }
 `;
 
-// const LoginLink = styled.a.attrs({
-//   href: "/login",
-// })`
-//   color: #e1e3f2;
-//   font-weight: 700;
-// `;
-
 const Header = () => {
+  const { isLoggined } = useSelector((state) => ({
+    isLoggined: state.user.isLoggedIn,
+  }));
   return (
     <>
       <HeaderContainer>
@@ -59,7 +66,7 @@ const Header = () => {
           </LogoContainer>
         </Link>
         <SearchBar />
-        {isLoggined ? <Profile /> : <Link to="/login">로그인</Link>}
+        {isLoggined ? <Profile /> : <RouteLink to="/login">로그인</RouteLink>}
       </HeaderContainer>
     </>
   );

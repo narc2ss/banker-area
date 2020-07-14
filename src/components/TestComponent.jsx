@@ -47,8 +47,12 @@ const StyledButton = styled.button`
     `}
 `;
 
-function Button({ children, ...rest }) {
-  return <StyledButton {...rest}>{children}</StyledButton>;
-}
+const TestComponent = ({ name }) => {
+  return (
+    <>
+      <StyledButton>Hello, {name}</StyledButton>
+    </>
+  );
+};
 
-export default Button;
+export default TestComponent;
