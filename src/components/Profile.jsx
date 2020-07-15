@@ -1,18 +1,18 @@
 import React from "react";
 import { faPen, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import RouteLink from "../style/atoms/RouteLink";
 
 const Profile = () => {
   return (
     <>
       <div>
-        <Link to="/write">
+        <RouteLink to="/write" secondary>
           <FontAwesomeIcon icon={faPen} />
-        </Link>
-        <Link to="/my">
+        </RouteLink>
+        <RouteLink to="/my" secondary>
           <FontAwesomeIcon icon={faUser} />
-        </Link>
+        </RouteLink>
       </div>
     </>
   );

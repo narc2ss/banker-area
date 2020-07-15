@@ -1,13 +1,12 @@
 import dotenv from "dotenv";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
-import SocialLogin from "../components/OAuth";
 import { Input, Button } from "../style/atoms";
 import { useDispatch } from "react-redux";
 import { logIn } from "../modules/user";
+import { RouteLink } from "../style/atoms";
 
 dotenv.config();
 
@@ -81,11 +80,11 @@ const Login = () => {
           </form>
           <div>
             <span>계정이 없다면?</span>
-            <Link to="/register">계정 만들기</Link>
+            <RouteLink to="/register">계정 만들기</RouteLink>
           </div>
           <div>
             <span>비밀번호를 잊으셨나요?</span>
-            <Link to="findPassword">비밀번호 찾기</Link>
+            <RouteLink to="findPassword">비밀번호 찾기</RouteLink>
           </div>
         </LoginContainer>
       </LoginPositioner>

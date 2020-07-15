@@ -2,7 +2,6 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 const StyledButton = styled.button`
-  /* 공통 스타일 */
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -14,17 +13,26 @@ const StyledButton = styled.button`
   cursor: pointer;
   padding-left: 1rem;
   padding-right: 1rem;
-
-  /* 크기 */
   height: 2.25rem;
   font-size: 1rem;
-
-  /* 색상 */
   background: ${(props) => props.theme.palette.cloudBurst};
 
-  /* 기타 */
 
-  /* full */
+  ${(props) =>
+    props.secondary &&
+    css`
+      background: ${(props) => props.theme.palette.titanWhite};
+      color: ${(props) => props.theme.palette.cloudBurst};
+    `}
+
+  ${(props) =>
+    props.tertiary &&
+    css`
+      background: none;
+      color: ${(props) => props.theme.palette.titanWhite};
+      font-weight: normal;
+    `}
+
   ${(props) =>
     props.full &&
     css`
@@ -40,10 +48,15 @@ const StyledButton = styled.button`
     `}
 
   ${(props) =>
-    props.secondary &&
+    props.small &&
     css`
-      background: ${(props) => props.theme.palette.titanWhite};
-      color: ${(props) => props.theme.palette.cloudBurst};
+      height: 1.2rem;
+    `}
+
+  ${(props) =>
+    props.danger &&
+    css`
+      color: ${(props) => props.theme.palette.wildWatermelon};
     `}
 `;
 

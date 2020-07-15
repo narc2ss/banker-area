@@ -1,71 +1,85 @@
 import React from "react";
-import styled from "styled-components";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import logo from "../static/img/logo.png";
-import { Button } from "../style/atoms";
-import { Link } from "react-router-dom";
+import { Button, RouteLink } from "../style/atoms";
+import {
+  IdeaCardWrapper,
+  IdeaCardUserProfile,
+  ViewLikeWrapper,
+} from "../style/molecules";
+import { SpaceBetween } from "../style/positions";
 
-const IdeaCardContainer = styled.div`
-  width: 300px;
-  padding: 1rem;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 5px;
-`;
-
-const ProfileImage = styled.img`
-  display: inline-block;
-  width: 32px;
-  height: 32px;
-`;
-
-const IdeaCard = (edit, props) => {
-  const { banker, article, price, view, liker } = props;
+const IdeaCard = ({
+  edit,
+  danger,
+  id,
+  banker,
+  title,
+  article,
+  price,
+  view,
+  liker,
+}) => {
   if (edit) {
     return (
-      <IdeaCardContainer>
+      <IdeaCardWrapper>
         <div>
-          <Link to="/idea/edit/:id">수정</Link>
-          <Button value="삭제" primary />
+          <SpaceBetween>
+            <IdeaCardUserProfile>
+              <img src={logo} alt="뱅크에리어" />
+              <h2>{banker}</h2>
+            </IdeaCardUserProfile>
+            <div>
+              <RouteLink to="/login">수정</RouteLink>
+              <Button tertiary danger>
+                삭제
+              </Button>
+            </div>
+          </SpaceBetween>
         </div>
-        <div>
-          <ProfileImage src={logo} />
-          <h1>{banker}</h1>
-        </div>
+        <RouteLink to={`/idea/${id}`}>{title}</RouteLink>
         <p>{article}</p>
-        <h3>{price}원</h3>
-        <h4>
-          <FontAwesomeIcon icon={faEye} />
-          {view}회
-        </h4>
-        <h4>
-          <FontAwesomeIcon icon={faHeart} />
-          {liker}명
-        </h4>
-      </IdeaCardContainer>
+
+        <ViewLikeWrapper>
+          <SpaceBetween>
+            <h3>{price}원</h3>
+            <div>
+              <FontAwesomeIcon icon={faEye} />
+              <span>{view}회</span>
+              <FontAwesomeIcon icon={faHeart} />
+              <span>{liker}명</span>
+            </div>
+          </SpaceBetween>
+        </ViewLikeWrapper>
+      </IdeaCardWrapper>
+    );
+  } else {
+    return (
+      <IdeaCardWrapper>
+        <IdeaCardUserProfile>
+          <img src={logo} alt="뱅크에리어" />
+          <h2>{banker}</h2>
+        </IdeaCardUserProfile>
+        <RouteLink to={`/idea/${id}`}>{title}</RouteLink>
+        <p>{article}</p>
+
+        <ViewLikeWrapper>
+          <SpaceBetween>
+            <h3>{price}원</h3>
+            <div>
+              <FontAwesomeIcon icon={faEye} />
+              <span>{view}회</span>
+              <FontAwesomeIcon icon={faHeart} />
+              <span>{liker}명</span>
+            </div>
+          </SpaceBetween>
+        </ViewLikeWrapper>
+      </IdeaCardWrapper>
     );
   }
-
-  return (
-    <IdeaCardContainer>
-      <div>
-        <ProfileImage src={logo} />
-        <h1>{banker}</h1>
-      </div>
-      <p>{article}</p>
-      <h3>{price}원</h3>
-      <h4>
-        <FontAwesomeIcon icon={faEye} />
-        {view}회
-      </h4>
-      <h4>
-        <FontAwesomeIcon icon={faHeart} />
-        {liker}명
-      </h4>
-    </IdeaCardContainer>
-  );
 };
 
 export default IdeaCard;

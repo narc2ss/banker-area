@@ -6,6 +6,7 @@ import logo from "../static/img/logo.png";
 import Profile from "../components/Profile";
 import RouteLink from "../style/atoms/RouteLink";
 import { useSelector } from "react-redux";
+import { SearchBar } from "../style/molecules";
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -34,24 +35,6 @@ const LogoText = styled.h1`
   color: #e1e3f2;
 `;
 
-const SearchBar = styled.input.attrs({
-  type: "search",
-  placeholder: "어떤 획기적인 아이디어가 있는지 둘러볼까요?",
-})`
-  width: 500px;
-  height: 3rem;
-  padding: 1rem;
-
-  font-size: 1.1rem;
-
-  border-radius: 50px;
-  outline: none;
-
-  &:focus {
-    color: ${(props) => props.theme.palette.gray};
-  }
-`;
-
 const Header = () => {
   const { isLoggined } = useSelector((state) => ({
     isLoggined: state.user.isLoggedIn,
@@ -66,7 +49,13 @@ const Header = () => {
           </LogoContainer>
         </Link>
         <SearchBar />
-        {isLoggined ? <Profile /> : <RouteLink to="/login">로그인</RouteLink>}
+        {isLoggined ? (
+          <Profile />
+        ) : (
+          <RouteLink to="/login" secondary>
+            로그인
+          </RouteLink>
+        )}
       </HeaderContainer>
     </>
   );

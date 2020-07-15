@@ -86,16 +86,18 @@ const Login = () => {
             label="비밀번호 확인"
             full
           />
+          <div>
+            회원가입 버튼을 누르시면 <RouteLink to="/tos">이용약관</RouteLink>및
+            <RouteLink to="/privacy">개인정보 처리방침</RouteLink>에 동의하시는
+            것으로 간주 됩니다.
+          </div>
           <Button type="submit" full>
             회원가입
           </Button>
         </form>
         <div>
           <span>계정이 있으신가요?</span>
-          <RouteLink to="/login" secondary>
-            로그인 하기
-          </RouteLink>
-          <RouteLink to="/">라우터링크</RouteLink>
+          <RouteLink to="/login">로그인 하기</RouteLink>
         </div>
         <span>또는</span>
         <OAuth type="signUp" />
