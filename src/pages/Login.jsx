@@ -5,8 +5,8 @@ import styled from "styled-components";
 
 import { Input, Button } from "../style/atoms";
 import { useDispatch } from "react-redux";
-import { logIn } from "../modules/auth";
 import { RouteLink } from "../style/atoms";
+import { login } from "../modules/auth";
 
 dotenv.config();
 
@@ -31,7 +31,7 @@ const Title = styled.h1`
   margin-bottom: 3rem;
 `;
 
-const Login = () => {
+const Login = ({ history }) => {
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const dispatch = useDispatch();
@@ -46,17 +46,8 @@ const Login = () => {
 
   const LoginRequestHandler = (e) => {
     e.preventDefault();
-    axios
-      .post("/users/account/signin", {
-        id: userId,
-        password: userPassword,
-      })
-      .then(function(response) {
-        console.log(response.data);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    dispatch(login(userId, userPassword));
+    history.push("/");
   };
 
   return (

@@ -17,7 +17,6 @@ export const decreaseAsync = () => (dispatch) => {
     dispatch(decrease());
   }, 1000);
 };
-
 const initialState = {
   number: 0,
   diff: 1,
