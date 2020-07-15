@@ -36,8 +36,8 @@ const LogoText = styled.h1`
 `;
 
 const Header = () => {
-  const { isLoggined } = useSelector((state) => ({
-    isLoggined: state.user.isLoggedIn,
+  const { user } = useSelector((state) => ({
+    user: state.auth.user,
   }));
   return (
     <>
@@ -49,7 +49,7 @@ const Header = () => {
           </LogoContainer>
         </Link>
         <SearchBar />
-        {isLoggined ? (
+        {user ? (
           <Profile />
         ) : (
           <RouteLink to="/login" secondary>
