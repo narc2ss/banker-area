@@ -26,6 +26,8 @@ const Title = styled.h1`
 const Login = () => {
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const [userPasswordCheck, setUserPasswordCheck] = useState("");
+  const [userEmail, setUserEmail] = useState("");
 
   const userIdHandler = (e) => {
     setUserId(e.target.value);
@@ -35,12 +37,21 @@ const Login = () => {
     setUserPassword(e.target.value);
   };
 
+  const userPasswordCheckHandler = (e) => {
+    setUserPasswordCheck(e.target.value);
+  };
+
+  const userEmailHandler = (e) => {
+    setUserEmail(e.target.value);
+  };
+
   const LoginRequestHandler = (e) => {
     e.preventDefault();
     axios({
       method: "post",
-      url: "/users/account/signin",
+      url: "/users/account/signup",
       data: {
+        email: userEmail,
         id: userId,
         password: userPassword,
       },
@@ -56,8 +67,8 @@ const Login = () => {
         <form onSubmit={LoginRequestHandler}>
           <Input
             type="email"
-            value={userPassword}
-            onChange={userPasswordHandler}
+            value={userEmail}
+            onChange={userEmailHandler}
             placeholder="이메일을 입력하세요"
             label="이메일"
             full
@@ -80,9 +91,9 @@ const Login = () => {
           />
           <Input
             type="password"
-            value={userPassword}
-            onChange={userPasswordHandler}
-            placeholder="비밀번호를 입력하세요"
+            value={userPasswordCheck}
+            onChange={userPasswordCheckHandler}
+            placeholder="비밀번호를 한번 더 입력하세요"
             label="비밀번호 확인"
             full
           />

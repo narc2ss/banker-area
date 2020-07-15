@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { Input, Button } from "../style/atoms";
 import { useDispatch } from "react-redux";
-import { logIn } from "../modules/user";
+import { logIn } from "../modules/auth";
 import { RouteLink } from "../style/atoms";
 
 dotenv.config();
@@ -46,7 +46,17 @@ const Login = () => {
 
   const LoginRequestHandler = (e) => {
     e.preventDefault();
-    dispatch(logIn());
+    axios
+      .post("/users/account/signin", {
+        id: userId,
+        password: userPassword,
+      })
+      .then(function(response) {
+        console.log(response.data);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   };
 
   return (
