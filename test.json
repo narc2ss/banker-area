@@ -1,0 +1,51 @@
+{
+  "idea_seq": 1,
+  "project_name": "테스트프로젝트",
+  "short_description": "테스트짧은설명",
+  "category": "테스트카테고리",
+  "read_count": 4,
+  "banker_id": "test",
+  "goodsList": [
+    {
+      "goods_seq": 1,
+      "goods_type": "motivation",
+      "open_status": 1,
+      "content": "테스트동기",
+      "price": 500,
+      "idea_seq": 1
+    },
+    {
+      "goods_seq": 2,
+      "goods_type": "need",
+      "open_status": 1,
+      "content": "테스트필요성",
+      "price": 500,
+      "idea_seq": 1
+    },
+    {
+      "goods_seq": 3,
+      "goods_type": "strategy",
+      "open_status": 1,
+      "content": "테스트전략",
+      "price": 500,
+      "idea_seq": 1
+    },
+    {
+      "goods_seq": 4,
+      "goods_type": "market_analysis",
+      "open_status": 1,
+      "content": "테스트시장분석",
+      "price": 500,
+      "idea_seq": 1
+    },
+    {
+      "goods_seq": 5,
+      "goods_type": "competitiveness",
+      "open_status": 1,
+      "content": "테스트경쟁성",
+      "price": 500,
+      "idea_seq": 1
+    }
+  ],
+  "likey_count": 3
+}
