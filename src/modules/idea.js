@@ -18,43 +18,47 @@ export const createIdea = (idea) => async (dispatch) => {
   } = initialState;
   await dispatch({ type: CREATE_IDEA });
   try {
-    await axios.post("/idea/post", {
-      project_name: ideaName,
-      short_description: shortDescription,
-      category: "생활",
-      goodsList: [
-        {
-          goods_type: "motivation",
-          open_status: inconvenient.view,
-          content: inconvenient.content,
-          price: inconvenient.price,
-        },
-        {
-          goods_type: "need",
-          open_status: purpose.view,
-          content: purpose.content,
-          price: purpose.price,
-        },
-        {
-          goods_type: "strategy",
-          open_status: competitiveEdge.view,
-          content: competitiveEdge.content,
-          price: competitiveEdge.price,
-        },
-        {
-          goods_type: "market_analysis",
-          open_status: marketAnalysis.view,
-          content: marketAnalysis.content,
-          price: marketAnalysis.price,
-        },
-        {
-          goods_type: "competitiveness",
-          open_status: differentiation.view,
-          content: differentiation.content,
-          price: differentiation.price,
-        },
-      ],
-    });
+    await axios.post(
+      "/idea/post",
+      {
+        project_name: ideaName,
+        short_description: shortDescription,
+        category: "생활",
+        goodsList: [
+          {
+            goods_type: "motivation",
+            open_status: inconvenient.view,
+            content: inconvenient.content,
+            price: inconvenient.price,
+          },
+          {
+            goods_type: "need",
+            open_status: purpose.view,
+            content: purpose.content,
+            price: purpose.price,
+          },
+          {
+            goods_type: "strategy",
+            open_status: competitiveEdge.view,
+            content: competitiveEdge.content,
+            price: competitiveEdge.price,
+          },
+          {
+            goods_type: "market_analysis",
+            open_status: marketAnalysis.view,
+            content: marketAnalysis.content,
+            price: marketAnalysis.price,
+          },
+          {
+            goods_type: "competitiveness",
+            open_status: differentiation.view,
+            content: differentiation.content,
+            price: differentiation.price,
+          },
+        ],
+      },
+      { withCredentials: true }
+    );
   } catch (error) {}
 };
 

@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { RouteLink, Button } from "../style/atoms";
 import { SpaceBetween, RightAligned } from "../style/positions";
+import { useDispatch } from "react-redux";
+import { createIdea } from "../modules/idea";
 
 const PreviewIdea = ({ idea }) => {
   const {
@@ -19,6 +21,11 @@ const PreviewIdea = ({ idea }) => {
     like,
     view,
   } = idea;
+  const dispatch = useDispatch();
+  const createIdeaHandler = () => {
+    dispatch(createIdea(idea));
+  };
+
   return (
     <>
       <section>
@@ -74,7 +81,7 @@ const PreviewIdea = ({ idea }) => {
       <section>
         <RightAligned>
           <RouteLink to="/write">수정하기</RouteLink>
-          <Button>등록하기</Button>
+          <Button onClick={createIdeaHandler}>등록하기</Button>
         </RightAligned>
       </section>
     </>

@@ -9,18 +9,22 @@ import MyProfileContainer from "../containers/MyProfileContainer";
 import { Button, NavLink } from "../style/atoms";
 import { SpaceBetween } from "../style/positions";
 import { MyWrapper } from "../style/molecules";
+import axios from "axios";
 
 const activeStyle = {
   borderBottom: `2px solid #263163`,
 };
 
 const My = () => {
+  const onLogout = () => {
+    axios.post("/users/account/logout", { withCredentials: true });
+  };
   return (
     <>
       <MyWrapper>
         <SpaceBetween>
           <MyProfileContainer />
-          <Button type="button" tertiary>
+          <Button onClick={onLogout} type="button" tertiary>
             로그아웃
           </Button>
         </SpaceBetween>
