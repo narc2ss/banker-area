@@ -6,13 +6,8 @@ import styled from "styled-components";
 import logo from "../static/img/logo.png";
 
 const dummyData = {
-  liker: 943,
-  src: logo,
   banker: "narciss",
   writeDate: "2020년 7월 23일",
-  view: 23221,
-  shortDescription: "TV리모컨 그만찾기",
-  price: 300000,
   inconvenient:
     "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
   purpose:
@@ -23,6 +18,11 @@ const dummyData = {
     "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
   marketAnalysis:
     "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+  liker: 943,
+  src: logo,
+  view: 23221,
+  shortDescription: "TV리모컨 그만찾기",
+  price: 300000,
 };
 
 const DetailContainer = styled.div`
