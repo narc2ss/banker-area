@@ -5,6 +5,7 @@ import { withCookies } from "react-cookie";
 
 import { Home, Login, SignUp, My, IdeaDetail, Write } from "pages";
 import Preview from "../pages/Preview";
+import Search from "../pages/Search";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/idea/preview" component={Preview} />
         <Route path="/idea/:id" component={IdeaDetail} />
         <Route path="/write" component={Write} />
+        <Route path="/search/:keyword" component={Search} />
       </Switch>
     </>
   );

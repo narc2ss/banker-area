@@ -2,22 +2,9 @@ import React, { useState } from "react";
 import IdeaTextArea from "../../components/write/IdeaTextArea";
 import { TextArea, Input, Button, RouteLink } from "../../style/atoms";
 import { RightAligned } from "../../style/positions";
-import { useSelector } from "react-redux";
+import { useInput } from "../../util";
 
 const IdeaTextAreaContainer = () => {
-  const { userId } = useSelector((state) => {
-    return {
-      userId: state.auth.user,
-    };
-  });
-  const useInput = (initialValue) => {
-    const [value, setValue] = useState(initialValue);
-    const onChange = (e) => {
-      setValue(e.target.value);
-    };
-    return { value, onChange };
-  };
-
   const ideaName = useInput("");
   const shortDescription = useInput("");
   const inconvenient = useInput("");

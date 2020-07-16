@@ -16,11 +16,11 @@ const AppLayout = styled.div`
   padding: 2rem;
 `;
 
-const Root = () => (
+const Root = ({ history }) => (
   <ThemeProvider theme={Theme}>
     <BrowserRouter>
       <GlobalStyle />
-      <Header />
+      <Header history={history} />
       <AppLayout>
         <App />
       </AppLayout>

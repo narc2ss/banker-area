@@ -11,7 +11,7 @@ const Home = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getIdeas());
-  }, []);
+  }, [dispatch]);
   const { ideaCards } = useSelector((state) => ({
     ideaCards: state.ideaCards.ideas,
   }));

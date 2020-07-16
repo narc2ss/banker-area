@@ -5,8 +5,10 @@ import { Link } from "react-router-dom";
 import logo from "../static/img/logo.png";
 import Profile from "../components/Profile";
 import RouteLink from "../style/atoms/RouteLink";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { SearchBar } from "../style/molecules";
+import { useInput } from "../util/useInput";
+import { getSearchIdeas } from "../modules/search";
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -39,6 +41,13 @@ const Header = () => {
   const { user } = useSelector((state) => ({
     user: state.auth.user,
   }));
+  const keyword = useInput("");
+  const dispatch = useDispatch();
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(getSearchIdeas(keyword.value));
+  };
   return (
     <>
       <HeaderContainer>
@@ -48,11 +57,13 @@ const Header = () => {
             <LogoText>뱅커에리어</LogoText>
           </LogoContainer>
         </Link>
-        <SearchBar />
+        <form onSubmit={onSubmit}>
+          <SearchBar value={keyword.value} onChange={keyword.onChange} />
+        </form>
         {user ? (
           <Profile />
         ) : (
-          <RouteLink to="/login" secondary>
+          <RouteLink to="/login" secondary="true">
             로그인
           </RouteLink>
         )}
