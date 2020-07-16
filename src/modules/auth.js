@@ -4,7 +4,11 @@ const LOG_IN = "auth/LOG_IN";
 const LOG_IN_SUCCESS = "auth/LOG_IN_SUCCESS";
 const LOG_IN_ERROR = "auth/LOG_IN_ERROR";
 
-export const login = (id, password) => async (dispatch) => {
+const LOG_OUT = "auth/LOG_OUT";
+const LOG_OUT_SUCCESS = "auth/LOG_OUT_SUCCESS";
+const LOG_OUT_ERROR = "auth/LOG_OUT_ERROR";
+
+export const login = (id, password, history) => async (dispatch) => {
   dispatch({ type: LOG_IN });
   try {
     const user = await axios.post(
@@ -16,9 +20,21 @@ export const login = (id, password) => async (dispatch) => {
       { withCredentials: true }
     );
     dispatch({ type: LOG_IN_SUCCESS, user });
+    history.push("/");
   } catch (error) {
     console.log(error);
     dispatch({ type: LOG_IN_ERROR, error });
+  }
+};
+
+export const logout = (history) => async (dispatch) => {
+  dispatch({ type: LOG_OUT });
+  try {
+    await axios.post("/users/account/logout", null, { withCredentials: true });
+    dispatch({ type: LOG_OUT_SUCCESS });
+    history.push("/");
+  } catch (error) {
+    dispatch({ type: LOG_OUT_ERROR });
   }
 };
 
@@ -42,6 +58,15 @@ export default function auth(state = initialState, action) {
       return {
         ...state,
         error: action.error,
+      };
+    case LOG_OUT:
+      return {
+        ...state,
+      };
+    case LOG_OUT_SUCCESS:
+      return {
+        ...state,
+        user: null,
       };
     default:
       return state;

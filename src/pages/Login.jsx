@@ -46,8 +46,7 @@ const Login = ({ history }) => {
 
   const LoginRequestHandler = (e) => {
     e.preventDefault();
-    dispatch(login(userId, userPassword));
-    history.push("/");
+    dispatch(login(userId, userPassword, history));
   };
 
   return (
@@ -59,6 +58,7 @@ const Login = ({ history }) => {
             <Input
               type="text"
               value={userId}
+              required
               onChange={userIdHandler}
               placeholder="아이디를 입력하세요"
               label="아이디"
@@ -69,6 +69,7 @@ const Login = ({ history }) => {
               <Input
                 type="password"
                 value={userPassword}
+                required
                 onChange={userPasswordHandler}
                 placeholder="비밀번호를 입력하세요"
                 label="비밀번호"

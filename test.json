@@ -1,51 +1,57 @@
-{
-  "idea_seq": 1,
-  "project_name": "테스트프로젝트",
-  "short_description": "테스트짧은설명",
-  "category": "테스트카테고리",
-  "read_count": 4,
-  "banker_id": "test",
-  "goodsList": [
-    {
-      "goods_seq": 1,
-      "goods_type": "motivation",
-      "open_status": 1,
-      "content": "테스트동기",
-      "price": 500,
-      "idea_seq": 1
-    },
-    {
-      "goods_seq": 2,
-      "goods_type": "need",
-      "open_status": 1,
-      "content": "테스트필요성",
-      "price": 500,
-      "idea_seq": 1
-    },
-    {
-      "goods_seq": 3,
-      "goods_type": "strategy",
-      "open_status": 1,
-      "content": "테스트전략",
-      "price": 500,
-      "idea_seq": 1
-    },
-    {
-      "goods_seq": 4,
-      "goods_type": "market_analysis",
-      "open_status": 1,
-      "content": "테스트시장분석",
-      "price": 500,
-      "idea_seq": 1
-    },
-    {
-      "goods_seq": 5,
-      "goods_type": "competitiveness",
-      "open_status": 1,
-      "content": "테스트경쟁성",
-      "price": 500,
-      "idea_seq": 1
-    }
-  ],
-  "likey_count": 3
-}
+[
+  {
+    "idea_seq": 3,
+    "project_name": "글 테스트",
+    "short_description": "점심은 맛있죠 국밥이거든요",
+    "category": "점심",
+    "read_count": 4,
+    "banker_id": "TH",
+    "goodsList": null,
+    "totalPriceOfIdea": 3,
+    "likey_count": 3
+  },
+  {
+    "idea_seq": 1,
+    "project_name": "테스트프로젝트",
+    "short_description": "테스트짧은설명",
+    "category": "테스트카테고리",
+    "read_count": 15,
+    "banker_id": "test",
+    "goodsList": null,
+    "totalPriceOfIdea": 1,
+    "likey_count": 3
+  },
+  {
+    "idea_seq": 4,
+    "project_name": "테스트프로젝트2",
+    "short_description": "테스트짧은설명2",
+    "category": "테스트카테고리2",
+    "read_count": 6,
+    "banker_id": "test",
+    "goodsList": null,
+    "totalPriceOfIdea": 4,
+    "likey_count": 2
+  },
+  {
+    "idea_seq": 8,
+    "project_name": "TV리모컨 찾기",
+    "short_description": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+    "category": "생활",
+    "read_count": 2,
+    "banker_id": "test",
+    "goodsList": null,
+    "totalPriceOfIdea": 8,
+    "likey_count": 1
+  },
+  {
+    "idea_seq": 16,
+    "project_name": "TV리모컨 찾기",
+    "short_description": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
+    "category": "생활",
+    "read_count": 2,
+    "banker_id": "test",
+    "goodsList": null,
+    "totalPriceOfIdea": 16,
+    "likey_count": 1
+  }
+]

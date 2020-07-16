@@ -10,14 +10,17 @@ import { Button, NavLink } from "../style/atoms";
 import { SpaceBetween } from "../style/positions";
 import { MyWrapper } from "../style/molecules";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { logout } from "../modules/auth";
 
 const activeStyle = {
   borderBottom: `2px solid #263163`,
 };
 
-const My = () => {
+const My = ({ history }) => {
+  const dispatch = useDispatch();
   const onLogout = () => {
-    axios.post("/users/account/logout", { withCredentials: true });
+    dispatch(logout(history));
   };
   return (
     <>
