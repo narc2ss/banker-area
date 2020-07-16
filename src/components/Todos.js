@@ -17,7 +17,7 @@ const TodoList = ({ todos, onToggle }) => {
   return (
     <ul>
       {todos.map((todo) => (
-        <TodoItem key={todo.is} todo={todo} onToggle={onToggle} />
+        <TodoItem key={todo.id} todo={todo} onToggle={onToggle} />
       ))}
     </ul>
   );
