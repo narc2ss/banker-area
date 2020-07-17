@@ -13,6 +13,7 @@ const IdCardContainer = ({ edit, ideaCards }) => {
         {ideaCards.map((value) => (
           <IdeaCard
             key={value.idea_seq}
+            id={value.idea_seq}
             banker={value.banker_id}
             title={value.project_name}
             article={value.short_description}

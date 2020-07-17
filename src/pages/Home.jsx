@@ -7,6 +7,7 @@ import { getIdeas } from "../modules/ideaCards";
 import { SearchBar } from "../style/molecules";
 import { useInput } from "../util/useInput";
 import { getSearchIdeas } from "../modules/search";
+import styled from "styled-components";
 
 const Home = ({ history }) => {
   const dispatch = useDispatch();
@@ -26,14 +27,19 @@ const Home = ({ history }) => {
   return (
     <>
       <article>
-        <form onSubmit={onSubmit}>
+        <SearchBarWrapper onSubmit={onSubmit}>
           <SearchBar value={keyword.value} onChange={keyword.onChange} />
-        </form>
+        </SearchBarWrapper>
         <ContentsTitle>인기 아이디어!</ContentsTitle>
         <IdCardContainer ideaCards={ideaCards} />
       </article>
     </>
   );
 };
+
+const SearchBarWrapper = styled.form`
+  text-align: center;
+  margin-bottom: 2rem;
+`;
 
 export default Home;

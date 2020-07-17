@@ -11,6 +11,7 @@ import { SpaceBetween } from "../style/positions";
 import { MyWrapper } from "../style/molecules";
 import { useDispatch } from "react-redux";
 import { logout } from "../modules/auth";
+import styled from "styled-components";
 
 const activeStyle = {
   borderBottom: `2px solid #263163`,
@@ -23,44 +24,53 @@ const My = ({ history }) => {
   };
   return (
     <>
-      <MyWrapper>
-        <SpaceBetween>
-          <MyProfileContainer />
-          <Button onClick={onLogout} type="button" tertiary>
-            로그아웃
-          </Button>
-        </SpaceBetween>
-        <ul>
-          <li>
-            <NavLink to="/my" activeStyle={activeStyle} exact>
-              나의 아이디어
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/my/buy" activeStyle={activeStyle}>
-              구매 목록
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/my/like" activeStyle={activeStyle}>
-              관심 목록
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/my/info" activeStyle={activeStyle}>
-              내 정보
-            </NavLink>
-          </li>
-        </ul>
-      </MyWrapper>
-      <Switch>
-        <Route path="/my" component={MyIdea} exact />
-        <Route path="/my/buy" component={Bought} />
-        <Route path="/my/like" component={Like} />
-        <Route path="/my/info" component={Info} />
-      </Switch>
+      <MyPositioner>
+        <MyWrapper>
+          <SpaceBetween>
+            <MyProfileContainer />
+            <Button onClick={onLogout} type="button" tertiary>
+              로그아웃
+            </Button>
+          </SpaceBetween>
+          <ul>
+            <li>
+              <NavLink to="/my" activeStyle={activeStyle} exact>
+                나의 아이디어
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/my/buy" activeStyle={activeStyle}>
+                구매 목록
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/my/like" activeStyle={activeStyle}>
+                관심 목록
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/my/info" activeStyle={activeStyle}>
+                내 정보
+              </NavLink>
+            </li>
+          </ul>
+        </MyWrapper>
+        <Switch>
+          <Route path="/my" component={MyIdea} exact />
+          <Route path="/my/buy" component={Bought} />
+          <Route path="/my/like" component={Like} />
+          <Route path="/my/info" component={Info} />
+        </Switch>
+      </MyPositioner>
     </>
   );
 };
+
+const MyPositioner = styled.div`
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background: #fff;
+  border-radius: 10px;
+  padding-bottom: 1rem;
+`;
 
 export default My;

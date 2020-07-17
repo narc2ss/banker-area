@@ -4,6 +4,10 @@ const CREATE_IDEA = "idea/CREATE_IDEA";
 const CREATE_IDEA_SUCCESS = "idea/CREATE_IDEA_SUCCESS";
 const CREATE_IDEA_ERROR = "idea/CREATE_IDEA_ERROR";
 
+const GET_IDEA = "idea/GET_IDEA";
+const GET_IDEA_SUCCESS = "idea/GET_IDEA_SUCCESS";
+const GET_IDEA_ERROR = "idea/GET_IDEA_ERROR";
+
 export const createIdea = (idea) => async (dispatch) => {
   const {
     banker,
@@ -62,6 +66,19 @@ export const createIdea = (idea) => async (dispatch) => {
   } catch (error) {}
 };
 
+export const getIdea = (id) => async (dispatch) => {
+  dispatch({ type: GET_IDEA });
+  try {
+    const result = await axios.get(`/idea/detail?idea_seq=${id}`, {
+      withCredentials: true,
+    });
+    dispatch({ type: GET_IDEA_SUCCESS, result });
+  } catch (error) {
+    console.error(error);
+    dispatch({ type: GET_IDEA_ERROR, error });
+  }
+};
+
 const initialState = {
   banker: "narciss",
   writeData: "2020년 7월 3일",
@@ -101,8 +118,43 @@ const initialState = {
   },
   like: 0,
   view: 0,
+  idea: {
+    loading: false,
+    data: null,
+    error: null,
+  },
 };
 
 export default function idea(state = initialState, action) {
-  return state;
+  switch (action.type) {
+    case GET_IDEA:
+      return {
+        ...state,
+        idea: {
+          loading: true,
+          data: null,
+          error: null,
+        },
+      };
+    case GET_IDEA_SUCCESS:
+      return {
+        ...state,
+        idea: {
+          loading: false,
+          data: action.result.data,
+          error: null,
+        },
+      };
+    case GET_IDEA_ERROR:
+      return {
+        ...state,
+        idea: {
+          loading: false,
+          data: null,
+          error: action.error,
+        },
+      };
+    default:
+      return state;
+  }
 }

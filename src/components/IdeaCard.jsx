@@ -13,6 +13,7 @@ import {
 import { SpaceBetween } from "../style/positions";
 
 const IdeaCard = ({
+  key,
   edit,
   danger,
   id,

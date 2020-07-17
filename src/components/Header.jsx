@@ -57,9 +57,9 @@ const Header = ({ history }) => {
             <LogoText>뱅커에리어</LogoText>
           </LogoContainer>
         </Link>
-        <form onSubmit={onSubmit}>
+        {/* <form onSubmit={onSubmit}>
           <SearchBar value={keyword.value} onChange={keyword.onChange} />
-        </form>
+        </form> */}
         {user ? (
           <Profile />
         ) : (

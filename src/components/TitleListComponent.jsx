@@ -2,8 +2,17 @@ import React from "react";
 import styled from "styled-components";
 
 const TitleListWrapper = styled.div`
-  padding: 1rem;
-  flex: 1;
+  padding: 1rem 1rem 0 1rem;
+  margin-right: 2rem;
+  height: 50%;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  position: sticky;
+  top: 100px;
+  h5 {
+    margin-bottom: 1rem;
+  }
 `;
 
 const TitleListComponent = () => {
