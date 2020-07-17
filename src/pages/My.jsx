@@ -9,7 +9,6 @@ import MyProfileContainer from "../containers/MyProfileContainer";
 import { Button, NavLink } from "../style/atoms";
 import { SpaceBetween } from "../style/positions";
 import { MyWrapper } from "../style/molecules";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import { logout } from "../modules/auth";
 

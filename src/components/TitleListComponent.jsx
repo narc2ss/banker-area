@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const TitleListWrapper = styled.div`
   padding: 1rem;
+  flex: 1;
 `;
 
 const TitleListComponent = () => {

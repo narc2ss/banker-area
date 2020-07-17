@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import logo from "../static/img/logo.png";
 import Profile from "../components/Profile";
@@ -37,7 +37,7 @@ const LogoText = styled.h1`
   color: #e1e3f2;
 `;
 
-const Header = () => {
+const Header = ({ history }) => {
   const { user } = useSelector((state) => ({
     user: state.auth.user,
   }));
@@ -46,7 +46,7 @@ const Header = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(getSearchIdeas(keyword.value));
+    dispatch(getSearchIdeas(keyword.value, history));
   };
   return (
     <>

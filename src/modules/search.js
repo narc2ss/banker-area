@@ -4,7 +4,7 @@ const IDEA_SEARCH = "search/IDEA_SEARCH";
 const IDEA_SEARCH_SUCCESS = "search/IDEA_SEARCH_SUCCESS";
 const IDEA_SEARCH_ERROR = "search/IDEA_SEARCH_ERROR";
 
-export const getSearchIdeas = (keyword) => async (dispatch) => {
+export const getSearchIdeas = (keyword, history) => async (dispatch) => {
   dispatch({ type: IDEA_SEARCH });
   console.log("idea_search reducer");
   try {
@@ -12,6 +12,7 @@ export const getSearchIdeas = (keyword) => async (dispatch) => {
       `/idea/list/search?type=searchWord&keyword=${keyword}`
     );
     dispatch({ type: IDEA_SEARCH_SUCCESS, result });
+    history.push(`/search/${keyword}`);
   } catch (error) {
     dispatch({ type: IDEA_SEARCH_ERROR });
   }

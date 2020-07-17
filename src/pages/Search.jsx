@@ -9,7 +9,7 @@ const Search = ({ match }) => {
   }));
   return (
     <>
-      <h1>카워드 : {keyword}</h1>
+      <h1>키워드 : {keyword}</h1>
       <IdCardContainer ideaCards={ideaCards} />
     </>
   );

@@ -6,6 +6,7 @@ body {
   padding: 0;
   font-family: sans-serif;
   box-sizing: border-box;
+  background: #F7F8FF;
 }
 
 *, *:before, *:after {

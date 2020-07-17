@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const IdeaTextAreaWrapper = styled.article`
   & input {
-    width: 100%;
+    flex: 6;
   }
 
   & button {

@@ -9,7 +9,7 @@ const WritePositioner = styled.article`
 `;
 
 const FormContainer = styled.form`
-  width: 50%;
+  flex: 3;
 `;
 
 const Write = () => {
