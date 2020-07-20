@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const IdeaTextAreaWrapper = styled.article`
+export const IdeaTextAreaWrapper = styled.form`
   & input {
     flex: 6;
   }

@@ -9,10 +9,8 @@ import { RightAligned } from "../style/positions";
 import { createIdea } from "../modules/idea";
 import logo from "../static/img/logo.png";
 
-const PreviewIdea = ({ idea }) => {
+const PreviewIdea = ({ idea, banker }) => {
   const {
-    banker,
-    writeData,
     ideaName,
     shortDescription,
     totalPriceOfIdea,
@@ -26,8 +24,9 @@ const PreviewIdea = ({ idea }) => {
   } = idea;
   const dispatch = useDispatch();
   const createIdeaHandler = () => {
-    dispatch(createIdea(idea));
+    dispatch(createIdea({ idea, banker }));
   };
+  const today = new Date();
 
   return (
     <>
@@ -38,7 +37,7 @@ const PreviewIdea = ({ idea }) => {
               <LikeWrapper>
                 <FontAwesomeIcon icon={faHeart} />
               </LikeWrapper>
-              <span>{like}</span>
+              <span>0</span>
             </LikePositioner>
             <CartWrapper>
               <FontAwesomeIcon icon={faShoppingCart} />
@@ -49,8 +48,8 @@ const PreviewIdea = ({ idea }) => {
           <InfoPositioner>
             <img src={logo} alt={`${banker}의프로필사진`} />
             <h1>{banker}</h1>
-            <h5>{writeData}</h5>
-            <h6>조회수 {view}회</h6>
+            <h5>{`${today.toLocaleDateString()}`}</h5>
+            <h6>조회수 0회</h6>
           </InfoPositioner>
 
           <ContentWrapper>
@@ -62,7 +61,7 @@ const PreviewIdea = ({ idea }) => {
           </ContentWrapper>
           <ContentWrapper>
             <h1>아이디어 총 가격</h1>
-            <p>{totalPriceOfIdea}</p>
+            <p>{totalPriceOfIdea}원</p>
           </ContentWrapper>
           <ContentWrapper>
             <h1>아이디어의 부재로 인하여 불편한점</h1>

@@ -1,5 +1,13 @@
 import axios from "axios";
 
+const TEMP_IDEA_NAME = "idea/TEMP_IDEA_NAME";
+const TEMP_SHORT_DESCRIPTION = "idea/SHORT_DESCRIPTION";
+const TEMP_INCONVENIENT = "idea/TEMP_INCONVENIENT";
+const TEMP_PURPOSE = "idea/TEMP_PURPOSE";
+const TEMP_COMPETITIVE_EDGE = "idea/TEMP_COMPETITIVE_EDGE";
+const TEMP_DIFFERENTIATION = "idea/TEMP_DIFFERENTIATION";
+const TEMP_MARKET_ANALYSIS = "idea/TEMP_MARKET_ANALYSIS";
+
 const CREATE_IDEA = "idea/CREATE_IDEA";
 const CREATE_IDEA_SUCCESS = "idea/CREATE_IDEA_SUCCESS";
 const CREATE_IDEA_ERROR = "idea/CREATE_IDEA_ERROR";
@@ -12,62 +20,92 @@ const CLICK_LIKE_IDEA = "idea/CLICK_LIKE_IDEA";
 const CLICK_LIKE_IDEA_SUCCESS = "idea/CLICK_LIKE_IDEA_SUCCESS";
 const CLICK_LIKE_IDEA_ERROR = "idea/CLICK_LIKE_IDEA_ERROR";
 
-export const createIdea = (idea) => async (dispatch) => {
-  const {
-    banker,
-    writeData,
-    ideaName,
-    shortDescription,
-    inconvenient,
-    purpose,
-    competitiveEdge,
-    differentiation,
-    marketAnalysis,
-  } = initialState;
-  await dispatch({ type: CREATE_IDEA });
+export const tempIdea = (data) => (dispatch) => {
+  switch (data.type) {
+    case "ideaName": {
+      dispatch({ type: TEMP_IDEA_NAME, payload: data });
+      return;
+    }
+    case "shortDescription": {
+      dispatch({ type: TEMP_SHORT_DESCRIPTION, payload: data });
+      return;
+    }
+    case "motivation": {
+      dispatch({ type: TEMP_INCONVENIENT, payload: data });
+      return;
+    }
+    case "need": {
+      dispatch({ type: TEMP_PURPOSE, payload: data });
+      return;
+    }
+    case "strategy": {
+      dispatch({ type: TEMP_COMPETITIVE_EDGE, payload: data });
+      return;
+    }
+    case "competitiveness": {
+      dispatch({ type: TEMP_DIFFERENTIATION, payload: data });
+      return;
+    }
+    case "market_analysis": {
+      dispatch({ type: TEMP_MARKET_ANALYSIS, payload: data });
+      return;
+    }
+    default:
+      return;
+  }
+};
+
+export const createIdea = ({ idea, banker }) => async (dispatch) => {
+  dispatch({ type: CREATE_IDEA });
+  console.log(idea);
   try {
-    await axios.post(
+    const result = await axios.post(
       "/idea/post",
       {
-        project_name: ideaName,
-        short_description: shortDescription,
+        banker_id: banker,
+        project_name: idea.ideaName,
+        short_description: idea.shortDescription,
         category: "생활",
         goodsList: [
           {
             goods_type: "motivation",
-            open_status: inconvenient.view,
-            content: inconvenient.content,
-            price: inconvenient.price,
+            open_status: idea.inconvenient.view,
+            content: idea.inconvenient.content,
+            price: idea.inconvenient.price,
           },
           {
             goods_type: "need",
-            open_status: purpose.view,
-            content: purpose.content,
-            price: purpose.price,
+            open_status: idea.purpose.view,
+            content: idea.purpose.content,
+            price: idea.purpose.price,
           },
           {
             goods_type: "strategy",
-            open_status: competitiveEdge.view,
-            content: competitiveEdge.content,
-            price: competitiveEdge.price,
+            open_status: idea.competitiveEdge.view,
+            content: idea.competitiveEdge.content,
+            price: idea.competitiveEdge.price,
           },
           {
             goods_type: "market_analysis",
-            open_status: marketAnalysis.view,
-            content: marketAnalysis.content,
-            price: marketAnalysis.price,
+            open_status: idea.marketAnalysis.view,
+            content: idea.marketAnalysis.content,
+            price: idea.marketAnalysis.price,
           },
           {
             goods_type: "competitiveness",
-            open_status: differentiation.view,
-            content: differentiation.content,
-            price: differentiation.price,
+            open_status: idea.differentiation.view,
+            content: idea.differentiation.content,
+            price: idea.differentiation.price,
           },
         ],
       },
       { withCredentials: true }
     );
-  } catch (error) {}
+    dispatch({ type: CREATE_IDEA_SUCCESS, result });
+  } catch (error) {
+    console.error(error);
+    dispatch({ type: CREATE_IDEA_ERROR });
+  }
 };
 
 export const getIdea = (id) => async (dispatch) => {
@@ -76,7 +114,7 @@ export const getIdea = (id) => async (dispatch) => {
     const result = await axios.get(`/idea/detail?idea_seq=${id}`, {
       withCredentials: true,
     });
-    dispatch({ type: GET_IDEA_SUCCESS, result });
+    dispatch({ type: GET_IDEA_SUCCESS, payload: result });
   } catch (error) {
     dispatch({ type: GET_IDEA_ERROR, error });
   }
@@ -98,44 +136,37 @@ export const likeIdea = (id) => async (dispatch) => {
 };
 
 const initialState = {
-  banker: "narciss",
-  writeData: "2020년 7월 3일",
-  ideaName: "TV리모컨 찾기",
-  shortDescription:
-    "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-  totalPriceOfIdea: 5000000,
-  inconvenient: {
-    content:
-      "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-    view: false,
-    price: 1000000,
+  temp: {
+    banker: "",
+    ideaName: "",
+    shortDescription: "",
+    totalPriceOfIdea: 0,
+    inconvenient: {
+      content: "",
+      view: false,
+      price: 0,
+    },
+    purpose: {
+      content: "",
+      view: false,
+      price: 0,
+    },
+    competitiveEdge: {
+      content: "",
+      view: false,
+      price: 0,
+    },
+    differentiation: {
+      content: "",
+      view: false,
+      price: 0,
+    },
+    marketAnalysis: {
+      content: "",
+      view: false,
+      price: 0,
+    },
   },
-  purpose: {
-    content:
-      "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-    view: false,
-    price: 1000000,
-  },
-  competitiveEdge: {
-    content:
-      "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-    view: false,
-    price: 1000000,
-  },
-  differentiation: {
-    content:
-      "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-    view: false,
-    price: 1000000,
-  },
-  marketAnalysis: {
-    content:
-      "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
-    view: false,
-    price: 1000000,
-  },
-  like: 0,
-  view: 0,
   idea: {
     loading: false,
     data: null,
@@ -172,7 +203,97 @@ export default function idea(state = initialState, action) {
           error: action.error,
         },
       };
-
+    case TEMP_IDEA_NAME:
+      console.log(action.payload.data);
+      return {
+        ...state,
+        temp: {
+          ...state.temp,
+          ideaName: action.payload.data,
+        },
+      };
+    case TEMP_SHORT_DESCRIPTION:
+      return {
+        ...state,
+        temp: {
+          ...state.temp,
+          shortDescription: action.payload.data,
+        },
+      };
+    case TEMP_INCONVENIENT:
+      return {
+        ...state,
+        temp: {
+          ...state.temp,
+          inconvenient: {
+            content: action.payload.data,
+            view: action.payload.view,
+            prive: action.payload.price,
+          },
+          totalPriceOfIdea: (state.temp.totalPriceOfIdea +=
+            action.payload.price),
+        },
+      };
+    case TEMP_PURPOSE:
+      return {
+        ...state,
+        temp: {
+          ...state.temp,
+          purpose: {
+            content: action.payload.data,
+            view: action.payload.view,
+            prive: action.payload.price,
+          },
+          totalPriceOfIdea: (state.temp.totalPriceOfIdea +=
+            action.payload.price),
+        },
+      };
+    case TEMP_COMPETITIVE_EDGE:
+      return {
+        ...state,
+        temp: {
+          ...state.temp,
+          competitiveEdge: {
+            content: action.payload.data,
+            view: action.payload.view,
+            prive: action.payload.price,
+          },
+          totalPriceOfIdea: (state.temp.totalPriceOfIdea +=
+            action.payload.price),
+        },
+      };
+    case TEMP_DIFFERENTIATION:
+      return {
+        ...state,
+        temp: {
+          ...state.temp,
+          differentiation: {
+            content: action.payload.data,
+            view: action.payload.view,
+            prive: action.payload.price,
+          },
+          totalPriceOfIdea: (state.temp.totalPriceOfIdea +=
+            action.payload.price),
+        },
+      };
+    case TEMP_MARKET_ANALYSIS:
+      return {
+        ...state,
+        temp: {
+          ...state.temp,
+          marketAnalysis: {
+            content: action.payload.data,
+            view: action.payload.view,
+            prive: action.payload.price,
+          },
+          totalPriceOfIdea: (state.temp.totalPriceOfIdea +=
+            action.payload.price),
+        },
+      };
+    case CREATE_IDEA_SUCCESS:
+      return {
+        ...state,
+      };
     case CLICK_LIKE_IDEA:
       return {
         ...state,

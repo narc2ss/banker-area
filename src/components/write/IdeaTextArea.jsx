@@ -7,17 +7,49 @@ import {
   ToggleButtonAndTitleWrapper,
 } from "../../style/molecules";
 import { SpaceBetween, RightAligned } from "../../style/positions";
+import { useInput } from "../../util";
+import { useDispatch } from "react-redux";
+import { tempIdea } from "../../modules/idea";
 
-const IdeaTextArea = ({ title, disable, children }) => {
+const IdeaTextArea = ({ title, disable, children, data, type }) => {
+  const dispatch = useDispatch();
   const [view, setView] = useState(false);
-
+  const [price, setPrice] = useState(0);
   const toggleHandler = () => {
     setView(!view);
+    setPrice(0);
+  };
+  const priceHandler = (e) => {
+    setPrice(parseInt(e.target.value, 10));
+  };
+
+  const showInfoHandler = (e) => {
+    e.preventDefault();
+    dispatch(
+      tempIdea({
+        type,
+        data,
+        view: true,
+        price: 0,
+      })
+    );
+  };
+
+  const unShowInfoHandler = (e) => {
+    e.preventDefault();
+    dispatch(
+      tempIdea({
+        type,
+        data,
+        view: false,
+        price: parseInt(price, 10),
+      })
+    );
   };
 
   if (disable) {
     return (
-      <IdeaTextAreaWrapper>
+      <IdeaTextAreaWrapper onSubmit={showInfoHandler}>
         <ToggleButtonAndTitleWrapper>
           <span>
             <FontAwesomeIcon icon={faEye} />
@@ -32,7 +64,7 @@ const IdeaTextArea = ({ title, disable, children }) => {
     );
   }
   return (
-    <IdeaTextAreaWrapper>
+    <IdeaTextAreaWrapper onSubmit={unShowInfoHandler}>
       <ToggleButtonAndTitleWrapper>
         <span onClick={toggleHandler}>
           {view ? (
@@ -46,7 +78,7 @@ const IdeaTextArea = ({ title, disable, children }) => {
       {children}
       {!view ? (
         <SpaceBetween>
-          <Input placeholder="가격입력" />
+          <Input placeholder="가격입력" value={price} onChange={priceHandler} />
           <Button secondary>확인</Button>
         </SpaceBetween>
       ) : (
