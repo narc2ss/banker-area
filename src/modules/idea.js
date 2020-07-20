@@ -116,6 +116,7 @@ export const getIdea = (id) => async (dispatch) => {
     });
     dispatch({ type: GET_IDEA_SUCCESS, payload: result });
   } catch (error) {
+    console.error(error);
     dispatch({ type: GET_IDEA_ERROR, error });
   }
 };
@@ -190,7 +191,7 @@ export default function idea(state = initialState, action) {
         ...state,
         idea: {
           loading: false,
-          data: action.result.data,
+          data: action.payload.data,
           error: null,
         },
       };
@@ -227,8 +228,8 @@ export default function idea(state = initialState, action) {
           ...state.temp,
           inconvenient: {
             content: action.payload.data,
-            view: action.payload.view,
-            prive: action.payload.price,
+            open_status: action.payload.view,
+            price: action.payload.price,
           },
           totalPriceOfIdea: (state.temp.totalPriceOfIdea +=
             action.payload.price),
@@ -241,8 +242,8 @@ export default function idea(state = initialState, action) {
           ...state.temp,
           purpose: {
             content: action.payload.data,
-            view: action.payload.view,
-            prive: action.payload.price,
+            open_status: action.payload.view,
+            price: action.payload.price,
           },
           totalPriceOfIdea: (state.temp.totalPriceOfIdea +=
             action.payload.price),
@@ -255,8 +256,8 @@ export default function idea(state = initialState, action) {
           ...state.temp,
           competitiveEdge: {
             content: action.payload.data,
-            view: action.payload.view,
-            prive: action.payload.price,
+            open_status: action.payload.view,
+            price: action.payload.price,
           },
           totalPriceOfIdea: (state.temp.totalPriceOfIdea +=
             action.payload.price),
@@ -269,8 +270,8 @@ export default function idea(state = initialState, action) {
           ...state.temp,
           differentiation: {
             content: action.payload.data,
-            view: action.payload.view,
-            prive: action.payload.price,
+            open_status: action.payload.view,
+            price: action.payload.price,
           },
           totalPriceOfIdea: (state.temp.totalPriceOfIdea +=
             action.payload.price),
@@ -283,8 +284,8 @@ export default function idea(state = initialState, action) {
           ...state.temp,
           marketAnalysis: {
             content: action.payload.data,
-            view: action.payload.view,
-            prive: action.payload.price,
+            open_status: action.payload.view,
+            price: action.payload.price,
           },
           totalPriceOfIdea: (state.temp.totalPriceOfIdea +=
             action.payload.price),

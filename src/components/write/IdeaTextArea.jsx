@@ -13,7 +13,7 @@ import { tempIdea } from "../../modules/idea";
 
 const IdeaTextArea = ({ title, disable, children, data, type }) => {
   const dispatch = useDispatch();
-  const [view, setView] = useState(false);
+  const [view, setView] = useState(true);
   const [price, setPrice] = useState(0);
   const toggleHandler = () => {
     setView(!view);
@@ -29,7 +29,7 @@ const IdeaTextArea = ({ title, disable, children, data, type }) => {
       tempIdea({
         type,
         data,
-        view: true,
+        view: false,
         price: 0,
       })
     );
@@ -41,7 +41,7 @@ const IdeaTextArea = ({ title, disable, children, data, type }) => {
       tempIdea({
         type,
         data,
-        view: false,
+        view,
         price: parseInt(price, 10),
       })
     );

@@ -19,8 +19,6 @@ const PreviewIdea = ({ idea, banker }) => {
     competitiveEdge,
     differentiation,
     marketAnalysis,
-    like,
-    view,
   } = idea;
   const dispatch = useDispatch();
   const createIdeaHandler = () => {
