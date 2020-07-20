@@ -1,5 +1,5 @@
 import React from "react";
-import IdCardContainer from "../containers/IdCardContainer";
+import IdeaCardContainer from "../containers/IdeaCardContainer";
 import { useSelector } from "react-redux";
 
 const Search = ({ match }) => {
@@ -10,7 +10,7 @@ const Search = ({ match }) => {
   return (
     <>
       <h1>키워드 : {keyword}</h1>
-      <IdCardContainer ideaCards={ideaCards} />
+      <IdeaCardContainer ideaCards={ideaCards} />
     </>
   );
 };

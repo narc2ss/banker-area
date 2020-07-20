@@ -11,11 +11,16 @@ import { useInput } from "../util/useInput";
 import { getSearchIdeas } from "../modules/search";
 
 const HeaderContainer = styled.header`
+  padding: 1rem 0;
+  background: #263163;
+`;
+
+const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 8rem;
-  background: #263163;
+  width: 1080px;
+  margin: 0 auto;
 `;
 
 const LogoContainer = styled.div`
@@ -51,22 +56,24 @@ const Header = ({ history }) => {
   return (
     <>
       <HeaderContainer>
-        <Link to="/">
-          <LogoContainer>
-            <LogoImg src={logo} alt="logo" />
-            <LogoText>뱅커에리어</LogoText>
-          </LogoContainer>
-        </Link>
-        {/* <form onSubmit={onSubmit}>
+        <HeaderWrapper>
+          <Link to="/">
+            <LogoContainer>
+              <LogoImg src={logo} alt="logo" />
+              <LogoText>뱅커에리어</LogoText>
+            </LogoContainer>
+          </Link>
+          {/* <form onSubmit={onSubmit}>
           <SearchBar value={keyword.value} onChange={keyword.onChange} />
         </form> */}
-        {user ? (
-          <Profile />
-        ) : (
-          <RouteLink to="/login" secondary="true">
-            로그인
-          </RouteLink>
-        )}
+          {user ? (
+            <Profile />
+          ) : (
+            <RouteLink to="/login" secondary="true">
+              로그인
+            </RouteLink>
+          )}
+        </HeaderWrapper>
       </HeaderContainer>
     </>
   );

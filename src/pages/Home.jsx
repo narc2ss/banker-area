@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import IdCardContainer from "../containers/IdCardContainer";
+import IdeaCardContainer from "../containers/IdeaCardContainer";
 import ContentsTitle from "../components/ContentsTitle";
 import { useDispatch, useSelector } from "react-redux";
 import { getIdeas } from "../modules/ideaCards";
@@ -31,7 +31,7 @@ const Home = ({ history }) => {
           <SearchBar value={keyword.value} onChange={keyword.onChange} />
         </SearchBarWrapper>
         <ContentsTitle>인기 아이디어!</ContentsTitle>
-        <IdCardContainer ideaCards={ideaCards} />
+        <IdeaCardContainer ideaCards={ideaCards} />
       </article>
     </>
   );

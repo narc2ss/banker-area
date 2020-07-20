@@ -5,7 +5,7 @@ import { IdeaCardPositioner } from "../style/molecules";
 import logo from "../static/img/logo.png";
 import { useSelector } from "react-redux";
 
-const IdCardContainer = ({ edit, ideaCards }) => {
+const IdeaCardContainer = ({ edit, ideaCards }) => {
   console.dir(ideaCards);
   return (
     <>
@@ -28,4 +28,4 @@ const IdCardContainer = ({ edit, ideaCards }) => {
   );
 };
 
-export default IdCardContainer;
+export default IdeaCardContainer;

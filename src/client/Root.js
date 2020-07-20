@@ -24,7 +24,6 @@ const Root = (ㅌ) => (
       <AppLayout>
         <App />
       </AppLayout>
-      <Footer />
     </BrowserRouter>
   </ThemeProvider>
 );

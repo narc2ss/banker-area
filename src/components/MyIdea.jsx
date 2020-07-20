@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import IdCardContainer from "../containers/IdCardContainer";
+import IdeaCardContainer from "../containers/IdeaCardContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { myIdeas } from "../modules/ideaCards";
 
@@ -11,7 +11,7 @@ const MyIdea = () => {
   const { myIdeaCards } = useSelector((state) => ({
     myIdeaCards: state.ideaCards.myIdeas,
   }));
-  return <IdCardContainer edit ideaCards={myIdeaCards} />;
+  return <IdeaCardContainer edit ideaCards={myIdeaCards} />;
 };
 
 export default MyIdea;

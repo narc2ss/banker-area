@@ -8,6 +8,10 @@ const GET_IDEA = "idea/GET_IDEA";
 const GET_IDEA_SUCCESS = "idea/GET_IDEA_SUCCESS";
 const GET_IDEA_ERROR = "idea/GET_IDEA_ERROR";
 
+const CLICK_LIKE_IDEA = "idea/CLICK_LIKE_IDEA";
+const CLICK_LIKE_IDEA_SUCCESS = "idea/CLICK_LIKE_IDEA_SUCCESS";
+const CLICK_LIKE_IDEA_ERROR = "idea/CLICK_LIKE_IDEA_ERROR";
+
 export const createIdea = (idea) => async (dispatch) => {
   const {
     banker,
@@ -74,8 +78,22 @@ export const getIdea = (id) => async (dispatch) => {
     });
     dispatch({ type: GET_IDEA_SUCCESS, result });
   } catch (error) {
-    console.error(error);
     dispatch({ type: GET_IDEA_ERROR, error });
+  }
+};
+
+export const likeIdea = (id) => async (dispatch) => {
+  dispatch({ type: CLICK_LIKE_IDEA });
+  try {
+    const bankerList = await axios.post(
+      "/idea/likey",
+      { idea_seq: id },
+      { withCredentials: true }
+    );
+    dispatch({ type: CLICK_LIKE_IDEA_SUCCESS, payload: bankerList });
+  } catch (error) {
+    console.error(error);
+    dispatch({ type: CLICK_LIKE_IDEA_ERROR, error });
   }
 };
 
@@ -146,6 +164,36 @@ export default function idea(state = initialState, action) {
         },
       };
     case GET_IDEA_ERROR:
+      return {
+        ...state,
+        idea: {
+          loading: false,
+          data: null,
+          error: action.error,
+        },
+      };
+
+    case CLICK_LIKE_IDEA:
+      return {
+        ...state,
+        idea: {
+          loading: true,
+          data: null,
+          error: null,
+        },
+      };
+    case CLICK_LIKE_IDEA_SUCCESS:
+      return {
+        ...state,
+        idea: {
+          loading: false,
+          data: {
+            ...state,
+          },
+          error: null,
+        },
+      };
+    case CLICK_LIKE_IDEA_ERROR:
       return {
         ...state,
         idea: {

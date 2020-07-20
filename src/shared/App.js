@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 
 import { withCookies } from "react-cookie";
 
-import { Home, Login, SignUp, My, IdeaDetail, Write } from "pages";
+import { Home, Login, SignUp, My, IdeaDetailPage, Write } from "pages";
 import Preview from "../pages/Preview";
 import Search from "../pages/Search";
 
@@ -16,7 +16,7 @@ const App = () => {
         <Route path="/register" component={SignUp} />
         <Route path="/my" component={My} />
         <Route path="/idea/preview" component={Preview} />
-        <Route path="/idea/:id" component={IdeaDetail} />
+        <Route path="/idea/:id" component={IdeaDetailPage} />
         <Route path="/write" component={Write} />
         <Route path="/search/:keyword" component={Search} />
       </Switch>
