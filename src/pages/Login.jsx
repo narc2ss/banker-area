@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import React, { useState } from "react";
 import axios from "axios";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 import { Input, Button } from "../style/atoms";
 import { useDispatch } from "react-redux";
@@ -17,6 +17,15 @@ const LoginPositioner = styled.div`
   width: 100%;
 `;
 
+const FadeLoginContainer = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+
 const LoginContainer = styled.div`
   width: 700px;
   margin: 3rem auto;
@@ -26,11 +35,26 @@ const LoginContainer = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   background: #fff;
   border-radius: 10px;
+  animation: ${FadeLoginContainer} 1s ease-in;
 `;
 
 const Title = styled.h1`
   text-align: center;
   margin-bottom: 3rem;
+`;
+
+const DescriptionFont = styled.div`
+  font-size: .90rem;
+  text-align: center;
+  margin-bottom: .3rem;
+  .RouteLink {
+    font-size: 1.2rem;
+    text-decoration: underline;
+    &:hover {
+      color: black;
+      transition: 0.5s ease-in;
+    }
+  }
 `;
 
 const Login = ({ history }) => {
@@ -82,14 +106,12 @@ const Login = ({ history }) => {
               로그인
             </Button>
           </form>
-          <div>
-            <span>계정이 없다면?</span>
-            <RouteLink to="/register">계정 만들기</RouteLink>
-          </div>
-          <div>
+          <DescriptionFont>
+            계정이 없다면? 
+            <RouteLink className="RouteLink" to="/register">계정 만들기</RouteLink>
             <span>비밀번호를 잊으셨나요?</span>
-            <RouteLink to="findPassword">비밀번호 찾기</RouteLink>
-          </div>
+            <RouteLink className="RouteLink" to="findPassword">비밀번호 찾기</RouteLink>
+          </DescriptionFont>
         </LoginContainer>
       </LoginPositioner>
     </>
