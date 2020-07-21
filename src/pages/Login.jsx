@@ -1,8 +1,8 @@
 import dotenv from "dotenv";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled, { keyframes } from "styled-components";
-import KakaoLogin from "react-kakao-login";
+import Kakao from "kakaojs";
 
 import { Input, Button } from "../style/atoms";
 import { useDispatch } from "react-redux";
@@ -59,7 +59,7 @@ const DescriptionFont = styled.div`
   }
 `;
 
-const Login = ({ history, onLoginKakao }) => {
+const Login = ({ history }) => {
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const dispatch = useDispatch();
@@ -75,14 +75,6 @@ const Login = ({ history, onLoginKakao }) => {
   const LoginRequestHandler = (e) => {
     e.preventDefault();
     dispatch(login(userId, userPassword, history));
-  };
-
-  const responseKaKao = (res) => {
-    console.log(res);
-  };
-
-  const responseFail = (error) => {
-    console.log(error);
   };
   return (
     <>
@@ -117,12 +109,7 @@ const Login = ({ history, onLoginKakao }) => {
           </form>
           <span>또는</span>
 
-          <KakaoLogin
-            jsKey="kakao-js-key"
-            onSuccess={(result) => onLoginKakao(result)}
-            onFailure={(result) => console.log(result)}
-            getProfile={true}
-          />
+          <KakaoLogin />
           <DescriptionFont>
             계정이 없다면?
             <RouteLink className="RouteLink" to="/register">
@@ -136,6 +123,26 @@ const Login = ({ history, onLoginKakao }) => {
         </LoginContainer>
       </LoginPositioner>
     </>
+  );
+};
+
+const KakaoLogin = () => {
+  useEffect(() => {
+    window.Kakao.init("2401283f9aec07453195146620d9cdbf");
+    window.Kakao.Auth.createLoginButton({
+      container: "#kakao-login-btn",
+      success: function(authObj) {
+        alert(JSON.stringify(authObj));
+      },
+      fail: function(err) {
+        alert(JSON.stringify(err));
+      },
+    });
+  }, [Kakao]);
+  return (
+    <div>
+      <a id="kakao-login-btn"></a>
+    </div>
   );
 };
 

@@ -59,23 +59,33 @@ const IdeaDetail = ({ match }) => {
           </ContentWrapper>
           <ContentWrapper>
             <h1>아이디어의 부재로 인하여 불편한점</h1>
-            <p>{data.goodsList[0].content}</p>
+            <Content blur={data.goodsList[0].open_status}>
+              {data.goodsList[0].content}
+            </Content>
           </ContentWrapper>
           <ContentWrapper>
             <h1>아이디어가 구현하고자 하는 목적</h1>
-            <p>{data.goodsList[1].content}</p>
+            <Content blur={data.goodsList[1].open_status}>
+              {data.goodsList[1].content}
+            </Content>
           </ContentWrapper>
           <ContentWrapper>
             <h1>경쟁사 대비 우위요소</h1>
-            <p>{data.goodsList[2].content}</p>
+            <Content blur={data.goodsList[2].open_status}>
+              {data.goodsList[2].content}
+            </Content>
           </ContentWrapper>
           <ContentWrapper>
             <h1>차별화 전략</h1>
-            <p>{data.goodsList[3].content}</p>
+            <Content blur={data.goodsList[3].open_status}>
+              {data.goodsList[3].content}
+            </Content>
           </ContentWrapper>
           <ContentWrapper>
             <h1>시장분석</h1>
-            <p>{data.goodsList[4].content}</p>
+            <Content blur={data.goodsList[4].open_status}>
+              {data.goodsList[4].content}
+            </Content>
           </ContentWrapper>
         </ContentPositioner>
       </PreviewWrapper>
@@ -93,6 +103,12 @@ const ContentPositioner = styled.section`
   background: #fff;
   border-radius: 10px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
 `;
 
 const ButtonPositioner = styled.div`
@@ -190,6 +206,16 @@ const InfoPositioner = styled.div`
 
 const ContentWrapper = styled.div`
   margin-bottom: 2rem;
+`;
+
+const Content = styled.p`
+  margin: 1rem 0;
+
+  ${(props) =>
+    props.blur &&
+    css`
+      filter: blur(4px);
+    `}
 `;
 
 export default IdeaDetail;

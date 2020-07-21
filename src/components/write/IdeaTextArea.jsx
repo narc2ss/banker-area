@@ -10,46 +10,37 @@ import { SpaceBetween, RightAligned } from "../../style/positions";
 import { useInput } from "../../util";
 import { useDispatch } from "react-redux";
 import { tempIdea } from "../../modules/idea";
+import ideaPriceValidator from "../../util/ideaPriceValidator";
 
 const IdeaTextArea = ({ title, disable, children, data, type }) => {
   const dispatch = useDispatch();
-  const [view, setView] = useState(true);
+  const [blur, setBlur] = useState(true);
   const [price, setPrice] = useState(0);
   const toggleHandler = () => {
-    setView(!view);
-    setPrice(0);
+    setBlur(!blur);
+    console.log(blur);
   };
   const priceHandler = (e) => {
     setPrice(parseInt(e.target.value, 10));
   };
 
-  const showInfoHandler = (e) => {
+  const infoHandler = (e) => {
     e.preventDefault();
+    if (blur) setPrice(0);
     dispatch(
       tempIdea({
         type,
         data,
-        view: false,
-        price: 0,
+        blur,
+        price: ideaPriceValidator(price),
       })
     );
-  };
-
-  const unShowInfoHandler = (e) => {
-    e.preventDefault();
-    dispatch(
-      tempIdea({
-        type,
-        data,
-        view,
-        price: parseInt(price, 10),
-      })
-    );
+    console.log({ type, data, blur, price });
   };
 
   if (disable) {
     return (
-      <IdeaTextAreaWrapper onSubmit={showInfoHandler}>
+      <IdeaTextAreaWrapper onSubmit={infoHandler}>
         <ToggleButtonAndTitleWrapper>
           <span>
             <FontAwesomeIcon icon={faEye} />
@@ -64,19 +55,19 @@ const IdeaTextArea = ({ title, disable, children, data, type }) => {
     );
   }
   return (
-    <IdeaTextAreaWrapper onSubmit={unShowInfoHandler}>
+    <IdeaTextAreaWrapper onSubmit={infoHandler}>
       <ToggleButtonAndTitleWrapper>
         <span onClick={toggleHandler}>
-          {view ? (
-            <FontAwesomeIcon icon={faEye} />
-          ) : (
+          {blur ? (
             <FontAwesomeIcon icon={faEyeSlash} />
+          ) : (
+            <FontAwesomeIcon icon={faEye} />
           )}
         </span>
         <h1>{title}</h1>
       </ToggleButtonAndTitleWrapper>
       {children}
-      {!view ? (
+      {blur ? (
         <SpaceBetween>
           <Input placeholder="가격입력" value={price} onChange={priceHandler} />
           <Button secondary>확인</Button>

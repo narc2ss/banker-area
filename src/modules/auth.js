@@ -20,6 +20,7 @@ export const login = (id, password, history) => async (dispatch) => {
       { withCredentials: true }
     );
     dispatch({ type: LOG_IN_SUCCESS, user });
+    window.localStorage.user = id;
     history.push("/");
   } catch (error) {
     console.log(error);
@@ -32,6 +33,7 @@ export const logout = (history) => async (dispatch) => {
   try {
     await axios.post("/users/account/logout", null, { withCredentials: true });
     dispatch({ type: LOG_OUT_SUCCESS });
+    window.localStorage.removeItem("user");
     history.push("/");
   } catch (error) {
     dispatch({ type: LOG_OUT_ERROR });
@@ -39,7 +41,7 @@ export const logout = (history) => async (dispatch) => {
 };
 
 const initialState = {
-  user: null,
+  user: window.localStorage.user,
   error: null,
 };
 

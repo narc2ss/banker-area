@@ -138,33 +138,33 @@ export const likeIdea = (id) => async (dispatch) => {
 
 const initialState = {
   temp: {
-    banker: "",
+    banker: localStorage.user,
     ideaName: "",
     shortDescription: "",
     totalPriceOfIdea: 0,
     inconvenient: {
       content: "",
-      view: false,
+      blur: false,
       price: 0,
     },
     purpose: {
       content: "",
-      view: false,
+      blur: false,
       price: 0,
     },
     competitiveEdge: {
       content: "",
-      view: false,
+      blur: false,
       price: 0,
     },
     differentiation: {
       content: "",
-      view: false,
+      blur: false,
       price: 0,
     },
     marketAnalysis: {
       content: "",
-      view: false,
+      blur: false,
       price: 0,
     },
   },
