@@ -2,11 +2,13 @@ import dotenv from "dotenv";
 import React, { useState } from "react";
 import axios from "axios";
 import styled, { keyframes } from "styled-components";
+import KakaoLogin from "react-kakao-login";
 
 import { Input, Button } from "../style/atoms";
 import { useDispatch } from "react-redux";
 import { RouteLink } from "../style/atoms";
 import { login } from "../modules/auth";
+import kakaoLoginImage from "../static/img/kakao_login_medium_wide.png";
 
 dotenv.config();
 
@@ -44,9 +46,9 @@ const Title = styled.h1`
 `;
 
 const DescriptionFont = styled.div`
-  font-size: .90rem;
+  font-size: 0.9rem;
   text-align: center;
-  margin-bottom: .3rem;
+  margin-bottom: 0.3rem;
   .RouteLink {
     font-size: 1.2rem;
     text-decoration: underline;
@@ -57,7 +59,7 @@ const DescriptionFont = styled.div`
   }
 `;
 
-const Login = ({ history }) => {
+const Login = ({ history, onLoginKakao }) => {
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const dispatch = useDispatch();
@@ -75,6 +77,13 @@ const Login = ({ history }) => {
     dispatch(login(userId, userPassword, history));
   };
 
+  const responseKaKao = (res) => {
+    console.log(res);
+  };
+
+  const responseFail = (error) => {
+    console.log(error);
+  };
   return (
     <>
       <LoginPositioner>
@@ -106,11 +115,23 @@ const Login = ({ history }) => {
               로그인
             </Button>
           </form>
+          <span>또는</span>
+
+          <KakaoLogin
+            jsKey="kakao-js-key"
+            onSuccess={(result) => onLoginKakao(result)}
+            onFailure={(result) => console.log(result)}
+            getProfile={true}
+          />
           <DescriptionFont>
-            계정이 없다면? 
-            <RouteLink className="RouteLink" to="/register">계정 만들기</RouteLink>
+            계정이 없다면?
+            <RouteLink className="RouteLink" to="/register">
+              계정 만들기
+            </RouteLink>
             <span>비밀번호를 잊으셨나요?</span>
-            <RouteLink className="RouteLink" to="findPassword">비밀번호 찾기</RouteLink>
+            <RouteLink className="RouteLink" to="findPassword">
+              비밀번호 찾기
+            </RouteLink>
           </DescriptionFont>
         </LoginContainer>
       </LoginPositioner>
