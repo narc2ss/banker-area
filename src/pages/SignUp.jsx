@@ -37,9 +37,9 @@ const Title = styled.h1`
 `;
 
 const DescriptionFont = styled.div`
-  font-size: .85rem;
+  font-size: 0.85rem;
   text-align: center;
-  margin-bottom: .3rem;
+  margin-bottom: 0.3rem;
   a {
     text-decoration: underline;
     &:hover {
@@ -57,7 +57,7 @@ const OAuthTooltip = styled.div`
   flex-direction: column;
   align-items: center;
   position: absolute;
-  margin-top: 130px;
+  margin-top: 230px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   background: #fff;
   border-radius: 10px;
@@ -74,10 +74,10 @@ const OrDiv = styled.div`
   border-radius: 50px;
   width: 50px;
   height: 50px;
-  margin-bottom: .3rem;
+  margin-bottom: 0.3rem;
   cursor: pointer;
   &:hover {
-    opacity: .7;
+    opacity: 0.7;
     ${OAuthTooltip} {
       opacity: 1;
       transition: 0.3s ease-in;
@@ -178,7 +178,6 @@ const Login = () => {
           </OAuthTooltip>
         </OrDiv>
       </SignUpContainer>
-      
     </>
   );
 };
