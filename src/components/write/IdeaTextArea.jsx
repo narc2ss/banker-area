@@ -26,7 +26,7 @@ const IdeaTextArea = ({ title, disable, children, data, type }) => {
 
   const infoHandler = (e) => {
     e.preventDefault();
-    if (blur) setPrice(0);
+    if (!blur && typeof price === "string") setPrice(0);
     dispatch(
       tempIdea({
         type,
@@ -69,7 +69,12 @@ const IdeaTextArea = ({ title, disable, children, data, type }) => {
       {children}
       {blur ? (
         <SpaceBetween>
-          <Input placeholder="가격입력" value={price} onChange={priceHandler} />
+          <Input
+            type="number"
+            placeholder="가격입력"
+            value={price}
+            onChange={priceHandler}
+          />
           <Button secondary>확인</Button>
         </SpaceBetween>
       ) : (

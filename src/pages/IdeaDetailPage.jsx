@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,9 +6,40 @@ import { faHeart, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 import { getIdea, likeIdea } from "../modules/idea";
 import logo from "../static/img/logo.png";
+import { SpaceBetween } from "../style/positions";
+import { Button } from "../style/atoms";
+import { totalPriceValidator } from "../util";
+
+const DropDownMenu = styled.form`
+  color: ${(props) => props.theme.palette.black};
+  padding: 1rem 1rem 0 1rem;
+  position: absolute;
+  width: 500px;
+
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+
+  & ul {
+    margin-bottom: 1rem;
+  }
+  & ul > * {
+    margin-bottom: 0.5rem;
+  }
+`;
 
 const IdeaDetail = ({ match }) => {
   const { id } = match.params;
+  const [purchase, setPurchase] = useState(false);
+  let [totalPriceOfPurchase, setTotalPriceOfPurchase] = useState(0);
+
+  const [allPurcahse, setAllPurcahse] = useState(false);
+  const [inconvenientPurcahse, setInconvenientPurcahse] = useState(false);
+  const [purposePurchase, setPurposePurChase] = useState(false);
+  const [competitiveEdgePurchase, setCompetitiveEdgePurChase] = useState(false);
+  const [differentiationPurChase, setDifferentiationPurChase] = useState(false);
+  const [marketAnalysisPurChase, setMarketAnalysisPurChase] = useState(false);
+
   const dispatch = useDispatch();
   const { loading, data, error } = useSelector((state) => state.idea.idea);
   useEffect(() => {
@@ -17,6 +48,64 @@ const IdeaDetail = ({ match }) => {
 
   const likeHandler = () => {
     dispatch(likeIdea(id));
+  };
+
+  const onTogglePurchaseBox = (e) => {
+    setPurchase(!purchase);
+  };
+
+  const onAllPurchase = () => {
+    setAllPurcahse(!allPurcahse);
+    setInconvenientPurcahse(false);
+    setPurposePurChase(false);
+    setCompetitiveEdgePurChase(false);
+    setDifferentiationPurChase(false);
+    setMarketAnalysisPurChase(false);
+    setTotalPriceOfPurchase(data.totalPriceOfIdea);
+    if (allPurcahse) setTotalPriceOfPurchase(0);
+  };
+
+  const onInconvenientPurcahse = () => {
+    setAllPurcahse(false);
+    setInconvenientPurcahse(!inconvenientPurcahse);
+    console.log(inconvenientPurcahse, totalPriceOfPurchase);
+    if (!inconvenientPurcahse && totalPriceOfPurchase === data.totalPriceOfIdea)
+      setTotalPriceOfPurchase(0 + data.goodsList[0].price);
+    if (inconvenientPurcahse && totalPriceOfPurchase !== data.totalPriceOfIdea)
+      setTotalPriceOfPurchase(totalPriceOfPurchase - data.goodsList[0].price);
+  };
+
+  const onPurposePurChase = () => {
+    setAllPurcahse(false);
+    setPurposePurChase(!purposePurchase);
+    if (totalPriceValidator(totalPriceOfPurchase, data.totalPriceOfIdea))
+      setTotalPriceOfPurchase(0);
+  };
+
+  const onCompetitiveEdgePurChase = () => {
+    if (totalPriceValidator(totalPriceOfPurchase, data.totalPriceOfIdea))
+      setTotalPriceOfPurchase(0);
+    setAllPurcahse(false);
+    setCompetitiveEdgePurChase(!competitiveEdgePurchase);
+  };
+
+  const onDifferentiationPurChase = () => {
+    if (totalPriceValidator(totalPriceOfPurchase, data.totalPriceOfIdea))
+      setTotalPriceOfPurchase(0);
+    setAllPurcahse(false);
+    setDifferentiationPurChase(!differentiationPurChase);
+  };
+
+  const onMarketAnalysisPurChase = () => {
+    if (totalPriceValidator(totalPriceOfPurchase, data.totalPriceOfIdea))
+      setTotalPriceOfPurchase(0);
+    setAllPurcahse(false);
+    setMarketAnalysisPurChase(!marketAnalysisPurChase);
+  };
+
+  const onPurchaseIdea = (e) => {
+    e.preventDefault();
+    console.log("purchase");
   };
 
   if (loading) return <h1>로딩중!</h1>;
@@ -33,10 +122,107 @@ const IdeaDetail = ({ match }) => {
               </LikeWrapper>
               <span>{data.likey_count}</span>
             </LikePositioner>
-            <CartWrapper>
+            <CartWrapper onClick={onTogglePurchaseBox}>
               <FontAwesomeIcon icon={faShoppingCart} />
             </CartWrapper>
           </ButtonWrapper>
+          {purchase && (
+            <DropDownMenu onSubmit={onPurchaseIdea}>
+              <ul>
+                <li>
+                  <SpaceBetween>
+                    <label>
+                      <input
+                        type="checkbox"
+                        name="purchaseList"
+                        checked={allPurcahse}
+                        onClick={onAllPurchase}
+                      />
+                      전체구매
+                    </label>
+                    <h3>{data.totalPriceOfIdea}원</h3>
+                  </SpaceBetween>
+                </li>
+                <li>
+                  <SpaceBetween>
+                    <label>
+                      <input
+                        type="checkbox"
+                        name="purchaseList"
+                        checked={inconvenientPurcahse}
+                        onClick={onInconvenientPurcahse}
+                      />
+                      아이디어의 부재로 인하여 불편한 점 구매
+                    </label>
+                    <h3>{data.goodsList[0].price}원</h3>
+                  </SpaceBetween>
+                </li>
+                <li>
+                  <SpaceBetween>
+                    <label>
+                      <input
+                        type="checkbox"
+                        name="purchaseList"
+                        checked={purposePurchase}
+                        onClick={onPurposePurChase}
+                      />
+                      아이디어가 구현하고자 하는 목적 구매
+                    </label>
+                    <h3>{data.goodsList[1].price}원</h3>
+                  </SpaceBetween>
+                </li>
+                <li>
+                  <SpaceBetween>
+                    <label>
+                      <input
+                        type="checkbox"
+                        name="purchaseList"
+                        checked={competitiveEdgePurchase}
+                        onClick={onCompetitiveEdgePurChase}
+                      />
+                      경쟁사대비 우위요소 구매
+                    </label>
+                    <h3>{data.goodsList[2].price}원</h3>
+                  </SpaceBetween>
+                </li>
+                <li>
+                  <SpaceBetween>
+                    <label>
+                      <input
+                        type="checkbox"
+                        name="purchaseList"
+                        checked={differentiationPurChase}
+                        onClick={onDifferentiationPurChase}
+                      />
+                      차별화 전략 구매
+                    </label>
+                    <h3>{data.goodsList[3].price}원</h3>
+                  </SpaceBetween>
+                </li>
+                <li>
+                  <SpaceBetween>
+                    <label>
+                      <input
+                        type="checkbox"
+                        name="purchaseList"
+                        checked={marketAnalysisPurChase}
+                        onClick={onMarketAnalysisPurChase}
+                      />
+                      시장분석 구매
+                    </label>
+                    <h3>{data.goodsList[4].price}원</h3>
+                  </SpaceBetween>
+                </li>
+              </ul>
+              <SpaceBetween>
+                <h3>구매 목록 합계</h3>
+                <h3>{totalPriceOfPurchase}원</h3>
+              </SpaceBetween>
+              <Button type="submit" full>
+                구매
+              </Button>
+            </DropDownMenu>
+          )}
         </ButtonPositioner>
         <ContentPositioner>
           <InfoPositioner>
