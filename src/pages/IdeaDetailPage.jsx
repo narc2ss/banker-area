@@ -6,14 +6,13 @@ import { faHeart, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 import {
   getIdea,
-  likeIdea,
   purchaseAllChecked,
-  purchaseInconvenientChecked,
   purchaseAllUnchecked,
 } from "../modules/idea";
 import logo from "../static/img/logo.png";
 import { SpaceBetween } from "../style/positions";
 import { Button } from "../style/atoms";
+import { likeIdea } from "../modules/like";
 
 const DropDownMenu = styled.form`
   color: ${(props) => props.theme.palette.black};
@@ -53,7 +52,7 @@ const IdeaDetail = ({ match }) => {
   }, [dispatch]);
 
   const likeHandler = () => {
-    // dispatch(likeIdea(id));
+    dispatch(likeIdea(id));
   };
 
   const onTogglePurchaseBox = (e) => {
