@@ -4,3 +4,7 @@ export { default as SignUp } from "./SignUp";
 export { default as My } from "./My";
 export { default as IdeaDetailPage } from "./IdeaDetailPage";
 export { default as Write } from "./Write";
+export { default as NoMatch } from "./NoMatch";
+export { default as Preview } from "./Preview";
+export { default as Search } from "./Search";
+export { default as PurchaseSuccess } from "./PurchaseSuccess";

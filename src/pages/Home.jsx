@@ -12,7 +12,6 @@ import styled from "styled-components";
 const Home = ({ history }) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log(history);
     dispatch(getIdeas());
   }, [dispatch]);
   const { ideaCards } = useSelector((state) => ({

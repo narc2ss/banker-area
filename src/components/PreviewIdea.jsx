@@ -1,28 +1,32 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 import { RouteLink, Button } from "../style/atoms";
 import { RightAligned } from "../style/positions";
 import { createIdea } from "../modules/idea";
 import logo from "../static/img/logo.png";
+import { Content } from "../pages/IdeaDetailPage";
 
-const PreviewIdea = ({ idea, banker }) => {
+const PreviewIdea = () => {
+  const temp = useSelector((state) => state.idea.temp);
   const {
+    banker,
     ideaName,
     shortDescription,
-    totalPriceOfIdea,
     inconvenient,
     purpose,
     competitiveEdge,
     differentiation,
     marketAnalysis,
-  } = idea;
+    totalPriceOfIdea,
+  } = temp;
   const dispatch = useDispatch();
   const createIdeaHandler = () => {
-    dispatch(createIdea({ idea, banker }));
+    console.log(temp);
+    dispatch(createIdea(temp));
   };
   const today = new Date();
 
@@ -63,23 +67,31 @@ const PreviewIdea = ({ idea, banker }) => {
           </ContentWrapper>
           <ContentWrapper>
             <h1>아이디어의 부재로 인하여 불편한점</h1>
-            <p>{inconvenient.content}</p>
+            <Content blur={inconvenient.open_status}>
+              {inconvenient.content}
+            </Content>
           </ContentWrapper>
           <ContentWrapper>
             <h1>아이디어가 구현하고자 하는 목적</h1>
-            <p>{purpose.content}</p>
+            <Content blur={purpose.open_status}>{purpose.content}</Content>
           </ContentWrapper>
           <ContentWrapper>
             <h1>경쟁사 대비 우위요소</h1>
-            <p>{competitiveEdge.content}</p>
+            <Content blur={competitiveEdge.open_status}>
+              {competitiveEdge.content}
+            </Content>
           </ContentWrapper>
           <ContentWrapper>
             <h1>차별화 전략</h1>
-            <p>{differentiation.content}</p>
+            <Content blur={differentiation.open_status}>
+              {differentiation.content}
+            </Content>
           </ContentWrapper>
           <ContentWrapper>
             <h1>시장분석</h1>
-            <p>{marketAnalysis.content}</p>
+            <Content blur={marketAnalysis.open_status}>
+              {marketAnalysis.content}
+            </Content>
           </ContentWrapper>
           <RightAligned>
             <RouteLink to="/write">수정하기</RouteLink>

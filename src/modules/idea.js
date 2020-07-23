@@ -26,52 +26,34 @@ const PURCHASE_ALL_UNCHECKED = "idea/PURCHASE_ALL_UNCHECKED";
 const PURCHASE_INCONVENIENT_CHECKED = "idea/PURCHASE_INCONVENIENT_CHECKED";
 const PURCHASE_INCONVENIENT_UNCHECKED = "idea/PURCHASE_INCONVENIENT_UNCHECKED";
 
-const PURCHASE_PURPOSE_CHECKED = "idea/PURCHASE_PURPOSE_CHECKED";
-const PURCHASE_PURPOSE_UNCHECKED = "idea/PURCHASE_PURPOSE_UNCHECKED";
-
-const PURCHASE_COMPETITIVE_EDGE_CHECKED =
-  "idea/PURCHASE_COMPETITIVE_EDGE_CHECKED";
-const PURCHASE_COMPETITIVE_EDGE_UNCHECKED =
-  "idea/PURCHASE_COMPETITIVE_EDGE_UNCHECKED";
-
-const PURCHASE_DIFFERENTIATION_CHECKED =
-  "idea/PURCHASE_DIFFERENTIATION_CHECKED";
-const PURCHASE_DIFFERENTIATION_UNCHECKED =
-  "idea/PURCHASE_DIFFERENTIATION_UNCHECKED";
-
-const PURCHASE_MARKET_ANALYSIS_CHECKED =
-  "idea/PURCHASE_MARKET_ANALYSIS_CHECKED";
-const PURCHASE_MARKET_ANALYSIS_UNCHECKED =
-  "idea/PURCHASE_MARKET_ANALYSIS_UNCHECKED";
-
-export const tempIdea = (data) => (dispatch) => {
-  switch (data.type) {
+export const tempIdea = (payload) => (dispatch) => {
+  switch (payload.type) {
     case "ideaName": {
-      dispatch({ type: TEMP_IDEA_NAME, payload: data });
+      dispatch({ type: TEMP_IDEA_NAME, payload });
       return;
     }
     case "shortDescription": {
-      dispatch({ type: TEMP_SHORT_DESCRIPTION, payload: data });
+      dispatch({ type: TEMP_SHORT_DESCRIPTION, payload });
       return;
     }
     case "motivation": {
-      dispatch({ type: TEMP_INCONVENIENT, payload: data });
+      dispatch({ type: TEMP_INCONVENIENT, payload });
       return;
     }
     case "need": {
-      dispatch({ type: TEMP_PURPOSE, payload: data });
+      dispatch({ type: TEMP_PURPOSE, payload });
       return;
     }
     case "strategy": {
-      dispatch({ type: TEMP_COMPETITIVE_EDGE, payload: data });
+      dispatch({ type: TEMP_COMPETITIVE_EDGE, payload });
       return;
     }
     case "competitiveness": {
-      dispatch({ type: TEMP_DIFFERENTIATION, payload: data });
+      dispatch({ type: TEMP_DIFFERENTIATION, payload });
       return;
     }
     case "market_analysis": {
-      dispatch({ type: TEMP_MARKET_ANALYSIS, payload: data });
+      dispatch({ type: TEMP_MARKET_ANALYSIS, payload });
       return;
     }
     default:
@@ -79,47 +61,47 @@ export const tempIdea = (data) => (dispatch) => {
   }
 };
 
-export const createIdea = ({ idea, banker }) => async (dispatch) => {
+export const createIdea = (temp) => async (dispatch) => {
   dispatch({ type: CREATE_IDEA });
-  console.log(idea);
+  console.log(temp);
   try {
     const result = await axios.post(
       "/idea/post",
       {
-        banker_id: banker,
-        project_name: idea.ideaName,
-        short_description: idea.shortDescription,
+        banker_id: temp.banker,
+        project_name: temp.ideaName,
+        short_description: temp.shortDescription,
         category: "생활",
         goodsList: [
           {
             goods_type: "motivation",
-            open_status: idea.inconvenient.view,
-            content: idea.inconvenient.content,
-            price: idea.inconvenient.price,
+            open_status: temp.inconvenient.blur,
+            content: temp.inconvenient.content,
+            price: temp.inconvenient.price,
           },
           {
             goods_type: "need",
-            open_status: idea.purpose.view,
-            content: idea.purpose.content,
-            price: idea.purpose.price,
+            open_status: temp.purpose.blur,
+            content: temp.purpose.content,
+            price: temp.purpose.price,
           },
           {
             goods_type: "strategy",
-            open_status: idea.competitiveEdge.view,
-            content: idea.competitiveEdge.content,
-            price: idea.competitiveEdge.price,
+            open_status: temp.competitiveEdge.blur,
+            content: temp.competitiveEdge.content,
+            price: temp.competitiveEdge.price,
           },
           {
             goods_type: "market_analysis",
-            open_status: idea.marketAnalysis.view,
-            content: idea.marketAnalysis.content,
-            price: idea.marketAnalysis.price,
+            open_status: temp.marketAnalysis.blur,
+            content: temp.marketAnalysis.content,
+            price: temp.marketAnalysis.price,
           },
           {
             goods_type: "competitiveness",
-            open_status: idea.differentiation.view,
-            content: idea.differentiation.content,
-            price: idea.differentiation.price,
+            open_status: temp.differentiation.blur,
+            content: temp.differentiation.content,
+            price: temp.differentiation.price,
           },
         ],
       },
@@ -160,6 +142,22 @@ export const likeIdea = (id) => async (dispatch) => {
   }
 };
 
+export const purchaseAllChecked = () => (dispatch) => ({
+  type: PURCHASE_ALL_CHECKED,
+});
+
+export const purchaseAllUnchecked = () => ({
+  type: PURCHASE_ALL_UNCHECKED,
+});
+
+export const purchaseInconvenientChecked = () => ({
+  type: PURCHASE_INCONVENIENT_CHECKED,
+});
+
+export const purchaseInconvenientUnchecked = () => ({
+  type: PURCHASE_INCONVENIENT_UNCHECKED,
+});
+
 const initialState = {
   temp: {
     banker: localStorage.user,
@@ -196,6 +194,31 @@ const initialState = {
     loading: false,
     data: null,
     error: null,
+  },
+  purchaseInfo: {
+    IdeaId: null,
+    banker: localStorage.user,
+    totalPriceOfPurchaser: 0,
+    inconvenient: {
+      blur: false,
+      price: 0,
+    },
+    purpose: {
+      blur: false,
+      price: 0,
+    },
+    competitiveEdge: {
+      blur: false,
+      price: 0,
+    },
+    differentiation: {
+      blur: false,
+      price: 0,
+    },
+    marketAnalysis: {
+      blur: false,
+      price: 0,
+    },
   },
 };
 
@@ -252,7 +275,7 @@ export default function idea(state = initialState, action) {
           ...state.temp,
           inconvenient: {
             content: action.payload.data,
-            open_status: action.payload.view,
+            open_status: action.payload.blur,
             price: action.payload.price,
           },
           totalPriceOfIdea: (state.temp.totalPriceOfIdea +=
@@ -266,7 +289,7 @@ export default function idea(state = initialState, action) {
           ...state.temp,
           purpose: {
             content: action.payload.data,
-            open_status: action.payload.view,
+            open_status: action.payload.blur,
             price: action.payload.price,
           },
           totalPriceOfIdea: (state.temp.totalPriceOfIdea +=
@@ -280,7 +303,7 @@ export default function idea(state = initialState, action) {
           ...state.temp,
           competitiveEdge: {
             content: action.payload.data,
-            open_status: action.payload.view,
+            open_status: action.payload.blur,
             price: action.payload.price,
           },
           totalPriceOfIdea: (state.temp.totalPriceOfIdea +=
@@ -294,7 +317,7 @@ export default function idea(state = initialState, action) {
           ...state.temp,
           differentiation: {
             content: action.payload.data,
-            open_status: action.payload.view,
+            open_status: action.payload.blur,
             price: action.payload.price,
           },
           totalPriceOfIdea: (state.temp.totalPriceOfIdea +=
@@ -308,7 +331,7 @@ export default function idea(state = initialState, action) {
           ...state.temp,
           marketAnalysis: {
             content: action.payload.data,
-            open_status: action.payload.view,
+            open_status: action.payload.blur,
             price: action.payload.price,
           },
           totalPriceOfIdea: (state.temp.totalPriceOfIdea +=
@@ -348,6 +371,13 @@ export default function idea(state = initialState, action) {
           error: action.error,
         },
       };
+    case PURCHASE_ALL_CHECKED:
+      return {
+        ...state,
+        purchaseInfo: {},
+      };
+    case PURCHASE_ALL_UNCHECKED:
+      return { ...state };
     default:
       return state;
   }

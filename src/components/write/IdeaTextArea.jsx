@@ -18,29 +18,27 @@ const IdeaTextArea = ({ title, disable, children, data, type }) => {
   const [price, setPrice] = useState(0);
   const toggleHandler = () => {
     setBlur(!blur);
-    console.log(blur);
   };
   const priceHandler = (e) => {
     setPrice(parseInt(e.target.value, 10));
   };
 
-  const infoHandler = (e) => {
+  const onIdeaPreview = (e) => {
     e.preventDefault();
     if (!blur && typeof price === "string") setPrice(0);
-    dispatch(
-      tempIdea({
-        type,
-        data,
-        blur,
-        price: ideaPriceValidator(price),
-      })
-    );
-    console.log({ type, data, blur, price });
+    const payload = {
+      type,
+      data,
+      blur,
+      price: ideaPriceValidator(price),
+    };
+    console.log(payload);
+    dispatch(tempIdea(payload));
   };
 
   if (disable) {
     return (
-      <IdeaTextAreaWrapper onSubmit={infoHandler}>
+      <IdeaTextAreaWrapper onSubmit={onIdeaPreview}>
         <ToggleButtonAndTitleWrapper>
           <span>
             <FontAwesomeIcon icon={faEye} />
@@ -55,7 +53,7 @@ const IdeaTextArea = ({ title, disable, children, data, type }) => {
     );
   }
   return (
-    <IdeaTextAreaWrapper onSubmit={infoHandler}>
+    <IdeaTextAreaWrapper onSubmit={onIdeaPreview}>
       <ToggleButtonAndTitleWrapper>
         <span onClick={toggleHandler}>
           {blur ? (

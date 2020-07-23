@@ -1,7 +1,14 @@
 import React from "react";
+import IdeaCardContainer from "../containers/IdeaCardContainer";
+
+const dummy = [{}, {}, {}, {}, {}, {}, {}, {}];
 
 const Bought = () => {
-  return <h1>구매목록</h1>;
+  return (
+    <>
+      <IdeaCardContainer ideaCards={dummy} />
+    </>
+  );
 };
 
 export default Bought;

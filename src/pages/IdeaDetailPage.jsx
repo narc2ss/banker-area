@@ -4,11 +4,16 @@ import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
-import { getIdea, likeIdea } from "../modules/idea";
+import {
+  getIdea,
+  likeIdea,
+  purchaseAllChecked,
+  purchaseInconvenientChecked,
+  purchaseAllUnchecked,
+} from "../modules/idea";
 import logo from "../static/img/logo.png";
 import { SpaceBetween } from "../style/positions";
 import { Button } from "../style/atoms";
-import { totalPriceValidator } from "../util";
 
 const DropDownMenu = styled.form`
   color: ${(props) => props.theme.palette.black};
@@ -33,6 +38,7 @@ const IdeaDetail = ({ match }) => {
   const [purchase, setPurchase] = useState(false);
   let [totalPriceOfPurchase, setTotalPriceOfPurchase] = useState(0);
 
+  const [purchaseList, setPurchaseList] = useState([]);
   const [allPurcahse, setAllPurcahse] = useState(false);
   const [inconvenientPurcahse, setInconvenientPurcahse] = useState(false);
   const [purposePurchase, setPurposePurChase] = useState(false);
@@ -61,51 +67,36 @@ const IdeaDetail = ({ match }) => {
     setCompetitiveEdgePurChase(false);
     setDifferentiationPurChase(false);
     setMarketAnalysisPurChase(false);
-    setTotalPriceOfPurchase(data.totalPriceOfIdea);
-    if (allPurcahse) setTotalPriceOfPurchase(0);
-  };
-
-  const onInconvenientPurcahse = () => {
-    setAllPurcahse(false);
-    setInconvenientPurcahse(!inconvenientPurcahse);
-    console.log(inconvenientPurcahse, totalPriceOfPurchase);
-    if (!inconvenientPurcahse && totalPriceOfPurchase === data.totalPriceOfIdea)
-      setTotalPriceOfPurchase(0 + data.goodsList[0].price);
-    if (inconvenientPurcahse && totalPriceOfPurchase !== data.totalPriceOfIdea)
-      setTotalPriceOfPurchase(totalPriceOfPurchase - data.goodsList[0].price);
+    if (!allPurcahse) dispatch(purchaseAllChecked());
+    else dispatch(purchaseAllUnchecked());
+    data.goodsList.filter((v) => {
+      if (v.open_status) purchaseList.push(v.goods_seq);
+    });
   };
 
   const onPurposePurChase = () => {
     setAllPurcahse(false);
     setPurposePurChase(!purposePurchase);
-    if (totalPriceValidator(totalPriceOfPurchase, data.totalPriceOfIdea))
-      setTotalPriceOfPurchase(0);
   };
 
   const onCompetitiveEdgePurChase = () => {
-    if (totalPriceValidator(totalPriceOfPurchase, data.totalPriceOfIdea))
-      setTotalPriceOfPurchase(0);
-    setAllPurcahse(false);
     setCompetitiveEdgePurChase(!competitiveEdgePurchase);
+    setAllPurcahse(false);
   };
 
   const onDifferentiationPurChase = () => {
-    if (totalPriceValidator(totalPriceOfPurchase, data.totalPriceOfIdea))
-      setTotalPriceOfPurchase(0);
-    setAllPurcahse(false);
     setDifferentiationPurChase(!differentiationPurChase);
+    setAllPurcahse(false);
   };
 
   const onMarketAnalysisPurChase = () => {
-    if (totalPriceValidator(totalPriceOfPurchase, data.totalPriceOfIdea))
-      setTotalPriceOfPurchase(0);
-    setAllPurcahse(false);
     setMarketAnalysisPurChase(!marketAnalysisPurChase);
+    setAllPurcahse(false);
   };
 
   const onPurchaseIdea = (e) => {
-    e.preventDefault();
-    console.log("purchase");
+    console.log(purchaseList);
+    localStorage.setItem("purchaseList", purchaseList);
   };
 
   if (loading) return <h1>로딩중!</h1>;
@@ -127,14 +118,19 @@ const IdeaDetail = ({ match }) => {
             </CartWrapper>
           </ButtonWrapper>
           {purchase && (
-            <DropDownMenu onSubmit={onPurchaseIdea}>
+            <DropDownMenu
+              onSubmit={onPurchaseIdea}
+              name="form"
+              action="http://192.168.1.230:8080/purchase"
+              method="post"
+            >
+              <input type="hidden" name="purchaseList" value={purchaseList} />
               <ul>
                 <li>
                   <SpaceBetween>
                     <label>
                       <input
                         type="checkbox"
-                        name="purchaseList"
                         checked={allPurcahse}
                         onClick={onAllPurchase}
                       />
@@ -148,9 +144,8 @@ const IdeaDetail = ({ match }) => {
                     <label>
                       <input
                         type="checkbox"
-                        name="purchaseList"
-                        checked={inconvenientPurcahse}
-                        onClick={onInconvenientPurcahse}
+                        // checked={inconvenientPurcahse}
+                        disabled
                       />
                       아이디어의 부재로 인하여 불편한 점 구매
                     </label>
@@ -162,8 +157,8 @@ const IdeaDetail = ({ match }) => {
                     <label>
                       <input
                         type="checkbox"
-                        name="purchaseList"
-                        checked={purposePurchase}
+                        // checked={purposePurchase}
+                        disabled
                         onClick={onPurposePurChase}
                       />
                       아이디어가 구현하고자 하는 목적 구매
@@ -176,8 +171,8 @@ const IdeaDetail = ({ match }) => {
                     <label>
                       <input
                         type="checkbox"
-                        name="purchaseList"
-                        checked={competitiveEdgePurchase}
+                        // checked={competitiveEdgePurchase}
+                        disabled
                         onClick={onCompetitiveEdgePurChase}
                       />
                       경쟁사대비 우위요소 구매
@@ -190,8 +185,8 @@ const IdeaDetail = ({ match }) => {
                     <label>
                       <input
                         type="checkbox"
-                        name="purchaseList"
-                        checked={differentiationPurChase}
+                        // checked={differentiationPurChase}
+                        disabled
                         onClick={onDifferentiationPurChase}
                       />
                       차별화 전략 구매
@@ -204,8 +199,8 @@ const IdeaDetail = ({ match }) => {
                     <label>
                       <input
                         type="checkbox"
-                        name="purchaseList"
-                        checked={marketAnalysisPurChase}
+                        // checked={marketAnalysisPurChase}
+                        disabled
                         onClick={onMarketAnalysisPurChase}
                       />
                       시장분석 구매
@@ -394,7 +389,7 @@ const ContentWrapper = styled.div`
   margin-bottom: 2rem;
 `;
 
-const Content = styled.p`
+export const Content = styled.p`
   margin: 1rem 0;
 
   ${(props) =>

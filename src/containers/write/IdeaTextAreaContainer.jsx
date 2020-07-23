@@ -3,18 +3,6 @@ import IdeaTextArea from "../../components/write/IdeaTextArea";
 import { TextArea, Input, Button, RouteLink } from "../../style/atoms";
 import { RightAligned } from "../../style/positions";
 import { useInput } from "../../util";
-import { useDispatch } from "react-redux";
-
-const useToggle = (initialValue) => {
-  const [value, setValue] = useState(initialValue);
-  const onChange = () => {
-    setValue(!value);
-  };
-  return {
-    value,
-    onChange,
-  };
-};
 
 const IdeaTextAreaContainer = () => {
   const ideaName = useInput("");
