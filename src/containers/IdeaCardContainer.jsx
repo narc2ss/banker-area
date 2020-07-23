@@ -2,11 +2,10 @@ import React from "react";
 
 import IdeaCard from "../components/IdeaCard";
 import { IdeaCardPositioner } from "../style/molecules";
-import logo from "../static/img/logo.png";
-import { useSelector } from "react-redux";
 
 const IdeaCardContainer = ({ edit, ideaCards }) => {
   if (!ideaCards) return <h1>데이터 없음!</h1>;
+  console.log(ideaCards);
   return (
     <>
       <IdeaCardPositioner>

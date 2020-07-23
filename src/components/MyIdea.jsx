@@ -11,6 +11,7 @@ const MyIdea = () => {
   const { myIdeaCards } = useSelector((state) => ({
     myIdeaCards: state.ideaCards.myIdeas,
   }));
+  if (!myIdeaCards) return <h1>나의 아이디어 데이터 없음</h1>;
   return <IdeaCardContainer edit ideaCards={myIdeaCards} />;
 };
 

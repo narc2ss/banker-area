@@ -7,6 +7,7 @@ body {
   font-family: sans-serif;
   box-sizing: border-box;
   background: #F7F8FF;
+  font-family: 'Gothic A1', sans-serif;
 }
 
 *, *:before, *:after {

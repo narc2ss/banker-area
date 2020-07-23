@@ -53,7 +53,7 @@ const IdeaDetail = ({ match }) => {
   }, [dispatch]);
 
   const likeHandler = () => {
-    dispatch(likeIdea(id));
+    // dispatch(likeIdea(id));
   };
 
   const onTogglePurchaseBox = (e) => {

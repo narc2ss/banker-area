@@ -16,10 +16,6 @@ const GET_IDEA = "idea/GET_IDEA";
 const GET_IDEA_SUCCESS = "idea/GET_IDEA_SUCCESS";
 const GET_IDEA_ERROR = "idea/GET_IDEA_ERROR";
 
-const CLICK_LIKE_IDEA = "idea/CLICK_LIKE_IDEA";
-const CLICK_LIKE_IDEA_SUCCESS = "idea/CLICK_LIKE_IDEA_SUCCESS";
-const CLICK_LIKE_IDEA_ERROR = "idea/CLICK_LIKE_IDEA_ERROR";
-
 const PURCHASE_ALL_CHECKED = "idea/PURCHASE_ALL_CHECKED";
 const PURCHASE_ALL_UNCHECKED = "idea/PURCHASE_ALL_UNCHECKED";
 
@@ -75,31 +71,31 @@ export const createIdea = (temp) => async (dispatch) => {
         goodsList: [
           {
             goods_type: "motivation",
-            open_status: temp.inconvenient.blur,
+            open_status: temp.inconvenient.open_status,
             content: temp.inconvenient.content,
             price: temp.inconvenient.price,
           },
           {
             goods_type: "need",
-            open_status: temp.purpose.blur,
+            open_status: temp.purpose.open_status,
             content: temp.purpose.content,
             price: temp.purpose.price,
           },
           {
             goods_type: "strategy",
-            open_status: temp.competitiveEdge.blur,
+            open_status: temp.competitiveEdge.open_status,
             content: temp.competitiveEdge.content,
             price: temp.competitiveEdge.price,
           },
           {
             goods_type: "market_analysis",
-            open_status: temp.marketAnalysis.blur,
+            open_status: temp.marketAnalysis.open_status,
             content: temp.marketAnalysis.content,
             price: temp.marketAnalysis.price,
           },
           {
             goods_type: "competitiveness",
-            open_status: temp.differentiation.blur,
+            open_status: temp.differentiation.open_status,
             content: temp.differentiation.content,
             price: temp.differentiation.price,
           },
@@ -124,21 +120,6 @@ export const getIdea = (id) => async (dispatch) => {
   } catch (error) {
     console.error(error);
     dispatch({ type: GET_IDEA_ERROR, error });
-  }
-};
-
-export const likeIdea = (id) => async (dispatch) => {
-  dispatch({ type: CLICK_LIKE_IDEA });
-  try {
-    const bankerList = await axios.post(
-      "/idea/likey",
-      { idea_seq: id },
-      { withCredentials: true }
-    );
-    dispatch({ type: CLICK_LIKE_IDEA_SUCCESS, payload: bankerList });
-  } catch (error) {
-    console.error(error);
-    dispatch({ type: CLICK_LIKE_IDEA_ERROR, error });
   }
 };
 
@@ -341,35 +322,6 @@ export default function idea(state = initialState, action) {
     case CREATE_IDEA_SUCCESS:
       return {
         ...state,
-      };
-    case CLICK_LIKE_IDEA:
-      return {
-        ...state,
-        idea: {
-          loading: true,
-          data: null,
-          error: null,
-        },
-      };
-    case CLICK_LIKE_IDEA_SUCCESS:
-      return {
-        ...state,
-        idea: {
-          loading: false,
-          data: {
-            ...state,
-          },
-          error: null,
-        },
-      };
-    case CLICK_LIKE_IDEA_ERROR:
-      return {
-        ...state,
-        idea: {
-          loading: false,
-          data: null,
-          error: action.error,
-        },
       };
     case PURCHASE_ALL_CHECKED:
       return {
