@@ -15,13 +15,12 @@ const StyledButton = styled.button`
   padding-right: 1rem;
   height: 2.25rem;
   font-size: 1rem;
-  margin-bottom: 1rem;
   background: ${(props) => props.theme.palette.cloudBurst};
   
   &:hover {
-    border: 2px solid blue;
     opacity: .7;
-    transition: 0.25s ease-in;
+    font-weight: bold;
+    transition: 0.25s ease-out;
   }
   
   ${(props) =>
@@ -35,7 +34,7 @@ const StyledButton = styled.button`
     props.tertiary &&
     css`
       background: none;
-      color: ${(props) => props.theme.palette.titanWhite};
+      color: ${(props) => props.theme.palette.cloudBurst};
       font-weight: normal;
     `}
 
